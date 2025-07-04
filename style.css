@@ -1,0 +1,83 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #f0f8ff;
+  font-size: 18px;
+  text-align: center;
+}
+
+h1, h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 20px;
+  color: #444;
+  margin-bottom: 30px;
+}
+
+input, button {
+  padding: 15px;
+  font-size: 18px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.result, .error {
+  margin-top: 25px;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.result {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.suggestion-box {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.suggestion-box li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-box li:hover {
+  background-color: #f1f1f1;
+}
