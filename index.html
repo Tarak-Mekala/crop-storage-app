@@ -1,25 +1,48 @@
-<!-- Page 1: Welcome Page -->
-<div id="page1">
-  <h1>🌾 Welcome to Crop Storage App</h1>
-  <p>This app helps farmers find ideal storage conditions for their crops.</p>
-  <button onclick="goToPage2()">Start</button>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crop Storage App</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
 
-<!-- Page 2: Input Page -->
-<div id="page2" style="display: none;">
-  <h2>Enter Crop Name</h2>
-  <div style="position: relative;">
-    <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
-    <ul id="suggestions" class="suggestion-box"></ul>
+  <!-- Page 1: Welcome Page -->
+  <div id="page1">
+    <h1>🌾 Welcome to Crop Storage App</h1>
+    <p>This app helps farmers find ideal storage conditions for their crops.</p>
+    <button onclick="goToPage2()">Start</button>
   </div>
-  <button onclick="goToPage3()">Get Details</button>
-  <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
-  <div class="error" id="error"></div>
-</div>
 
-<!-- Page 3: Output Page -->
-<div id="page3" style="display: none;">
-  <h2 id="cropTitle">Crop Name</h2>
-  <div class="result" id="result"></div>
-  <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
-</div>
+  <!-- Page 2: Input Page -->
+  <div id="page2" style="display: none;">
+    <h2>Enter Crop Name</h2>
+    <div style="position: relative;">
+      <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
+      <ul id="suggestions" class="suggestion-box"></ul>
+    </div>
+    <button onclick="goToPage3()">Get Details</button>
+    <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
+    <div class="error" id="error"></div>
+  </div>
+
+  <!-- Page 3: Output Page -->
+  <div id="page3" style="display: none;">
+    <h2 id="cropTitle">Crop Name</h2>
+    <div class="result" id="result"></div>
+    <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    window.onload = function () {
+      showOnlyPage("page1");
+    };
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
+</body>
+</html>
