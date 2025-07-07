@@ -79,6 +79,7 @@ function displayStorageCenters(region) {
   }
 }
 
+// Crop database
 const cropData = [
   { crop: "wheat", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
   { crop: "rice", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
@@ -97,9 +98,121 @@ const cropData = [
   { crop: "cauliflower", temperature: "0–1°C", humidity: "90–95%", storage: "2–3 months" }
 ];
 
+// District storage centers
 const storageData = [
   {
     district: "Adilabad",
     centers: [
       "GMR Warehouse, Ashok Kumar Gadewar, Adilabad",
       "Ladda Agro Godowns, Jainad",
+      "Paharia Warehouse",
+      "Y S R Godown"
+    ]
+  },
+  {
+    district: "Karimnagar",
+    centers: [
+      "Srinivasa Cold Storage, Karimnagar",
+      "Godavari Agro Warehousing, Huzurabad",
+      "SVS Cold Chain, Jammikunta",
+      "Sri Gaddam Veeresham Rural Godown"
+    ]
+  },
+  {
+    district: "Nizamabad",
+    centers: [
+      "Nizam Agro Storage, Nizamabad",
+      "Green Leaf Cold Storage, Bodhan",
+      "SLNS Cold Storage, Munipally (V)",
+      "Hi-Tech Cold Storage, Armoor"
+    ]
+  },
+  {
+    district: "Warangal",
+    centers: [
+      "Bhavani Cold Storage, Warangal",
+      "Sree Lakshmi Warehouse, Parkal",
+      "TSWC Facility, Hanamkonda",
+      "Moksha Cold Storage, Enumamula",
+      "Saptagiri Cold Storage, Enumamula",
+      "Sri Karthik Cold Storage, Hanamkonda",
+      "Venkatagiri Cold Storage, Hanamkonda",
+      "Vennela Storage Unit, Gorrekunta"
+    ]
+  },
+  {
+    district: "Mahbubnagar",
+    centers: [
+      "Sri Sai Warehouse, Mahbubnagar",
+      "Mahindra Cold Chain, Bhootpur",
+      "Nandini Green House Farms Cold Storage Pvt Ltd",
+      "Sunyang Cold Storage & Warehousing, Kethireddypally"
+    ]
+  },
+  {
+    district: "Khammam",
+    centers: [
+      "Khammam Agro Cold Storage",
+      "Red Chilies Storage, Wyra",
+      "Gayathri Cold Storage",
+      "Swarnabharati Cold Storage",
+      "Krishna Sai Storage Unit"
+    ]
+  },
+  {
+    district: "Nalgonda",
+    centers: [
+      "Pavan Warehouse, Nalgonda",
+      "Sunrise Cold Storage, Miryalaguda",
+      "TSWC Nalgonda",
+      "Sri Satyadeva Cold Storage, Dondapadu"
+    ]
+  },
+  {
+    district: "Medak",
+    centers: [
+      "Medak Agro Storage",
+      "Greenfield Warehousing, Narsapur",
+      "Afsari Begum Ripening Chamber",
+      "S.S. Agro Fresh Cold Storage, Manoharabad"
+    ]
+  },
+  {
+    district: "Rangareddy",
+    centers: [
+      "Hyderabad Cold Storage, Shamshabad",
+      "Sri Venkateshwara Agro, Chevella",
+      "Aditya Enterprises, Batasingaram",
+      "Venkateshwara Cold Storage, Thurkayamjal"
+    ]
+  },
+  {
+    district: "Hyderabad",
+    centers: [
+      "City Agro Godowns, Hyderabad",
+      "Urban Cold Chain, Secunderabad",
+      "Coldrush Logistics",
+      "Akshaya Cold Storage Pvt Ltd"
+    ]
+  }
+];
+
+// On load
+window.onload = function () {
+  showOnlyPage("page1");
+  populateDistrictDropdown();
+};
+
+function populateDistrictDropdown() {
+  const select = document.getElementById("regionSelect");
+  storageData.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.district;
+    option.textContent = item.district;
+    select.appendChild(option);
+  });
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
