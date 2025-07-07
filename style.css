@@ -1,28 +1,24 @@
-/* Global Styling */
 body {
   font-family: 'Segoe UI', sans-serif;
   padding: 40px 20px;
   max-width: 600px;
   margin: auto;
-  background-color: #eaf7f1;
+  background-color: #f0f8ff;
   font-size: 18px;
   text-align: center;
 }
 
-/* Headings */
-h1, h2 {
+h1, h2, h3 {
   color: #2c3e50;
   margin-bottom: 20px;
 }
 
-/* Paragraphs */
 p {
-  font-size: 18px;
+  font-size: 20px;
   color: #444;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-/* Input Fields & Buttons */
 input, select, button {
   padding: 15px;
   font-size: 18px;
@@ -33,21 +29,17 @@ input, select, button {
   margin-top: 10px;
 }
 
-/* Buttons */
 button {
-  background-color: #4CAF50;
+  background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: #388e3c;
+  background-color: #0056b3;
 }
 
-/* Result and Error Blocks */
 .result, .error {
   margin-top: 25px;
   font-size: 18px;
@@ -56,19 +48,16 @@ button:hover {
   text-align: left;
 }
 
-/* Green background for result info */
 .result {
-  background-color: #e9fbe8;
+  background-color: #d4edda;
   color: #155724;
 }
 
-/* Red background for error messages */
 .error {
   background-color: #f8d7da;
   color: #721c24;
 }
 
-/* Autocomplete suggestion box */
 .suggestion-box {
   list-style: none;
   padding: 0;
@@ -91,4 +80,14 @@ button:hover {
 
 .suggestion-box li:hover {
   background-color: #f1f1f1;
+}
+
+ul#storageResults {
+  padding-left: 20px;
+  text-align: left;
+}
+
+ul#storageResults li {
+  margin-bottom: 8px;
+  list-style: disc;
 }
