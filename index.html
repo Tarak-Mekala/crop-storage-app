@@ -47,14 +47,16 @@
     <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
   </div>
 
+  <!-- ✅ Proper script loading -->
   <script src="script.js"></script>
   <script>
     window.onload = function () {
       showOnlyPage("page1");
+      populateDistrictDropdown();
     };
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
     }
-  <script src="script.js"></script>
+  </script>
 </body>
 </html>
