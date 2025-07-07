@@ -9,47 +9,42 @@
 </head>
 <body>
 
-  <!-- Page 1: Welcome -->
+  <!-- Page 1: Welcome Page -->
   <div id="page1">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions for their crops.</p>
+    <p>This app helps farmers find ideal storage conditions for their crops and storage centers nearby.</p>
     <button onclick="goToPage2()">Start</button>
   </div>
 
   <!-- Page 2: Input Page -->
   <div id="page2" style="display: none;">
-    <h2>Enter Crop Name:</h2>
+    <h2>Enter Crop Name</h2>
     <div style="position: relative;">
       <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
       <ul id="suggestions" class="suggestion-box"></ul>
     </div>
 
-    <h2>Select Your Region:</h2>
+    <h2>Select Your District</h2>
     <select id="regionSelect">
-      <option value="">Select Region</option>
-      <option value="Adilabad">Adilabad</option>
-      <option value="Nizamabad">Nizamabad</option>
-      <option value="Karimnagar">Karimnagar</option>
-      <option value="Warangal">Warangal</option>
-      <option value="Khammam">Khammam</option>
-      <option value="Mahbubnagar">Mahbubnagar</option>
-      <option value="Medak">Medak</option>
-      <option value="Nalgonda">Nalgonda</option>
-      <option value="Ranga Reddy">Ranga Reddy</option>
-      <option value="Hyderabad">Hyderabad</option>
+      <option value="">-- Select District --</option>
     </select>
 
-    <button onclick="goToPage3()">Check Storage</button>
+    <button onclick="goToPage3()">Get Details</button>
     <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
     <div class="error" id="error"></div>
   </div>
 
   <!-- Page 3: Output Page -->
   <div id="page3" style="display: none;">
-    <h2 id="cropTitle">Crop Information</h2>
+    <h2 id="cropTitle">Crop Name</h2>
     <div class="result" id="result"></div>
-    <div class="result" id="regionStorage"></div>
-    <button onclick="goToPage2()" style="margin-top: 20px;">Search Again</button>
+
+    <div class="result" id="centerSection" style="display: none;">
+      <h3>Nearby Storage Centers:</h3>
+      <ul id="storageResults"></ul>
+    </div>
+
+    <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
   </div>
 
   <script src="script.js"></script>
