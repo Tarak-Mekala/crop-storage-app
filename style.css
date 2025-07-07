@@ -81,13 +81,3 @@ button:hover {
 .suggestion-box li:hover {
   background-color: #f1f1f1;
 }
-
-ul#storageResults {
-  padding-left: 20px;
-  text-align: left;
-}
-
-ul#storageResults li {
-  margin-bottom: 8px;
-  list-style: disc;
-}
