@@ -2,35 +2,64 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agri Sathi</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="manifest" href="manifest.json" />
 </head>
 <body>
-  <div class="container">
+
+  <!-- Page 1: Welcome -->
+  <div id="page1">
     <h1>🌾 Welcome to Agri Sathi</h1>
     <p>This app helps farmers find ideal storage conditions for their crops.</p>
+    <button onclick="goToPage2()">Start</button>
+  </div>
 
-    <div class="card">
-      <label for="crop">Enter Crop Name:</label>
-      <input type="text" id="crop" placeholder="e.g., Tomato" />
-
-      <label for="region">Select Your Region:</label>
-      <select id="region" onchange="showStorageCenters()">
-        <option value="">-- Select Region --</option>
-        <option value="Nizamabad">Nizamabad</option>
-        <option value="ADILABAD">Adilabad</option>
-        <option value="HYDERABAD">Hyderabad</option>
-      </select>
-
-      <button onclick="checkStorageConditions()">Check Storage</button>
+  <!-- Page 2: Input Page -->
+  <div id="page2" style="display: none;">
+    <h2>Enter Crop Name:</h2>
+    <div style="position: relative;">
+      <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
+      <ul id="suggestions" class="suggestion-box"></ul>
     </div>
 
-    <div id="result" class="output"></div>
-    <div id="storage-centers" class="output"></div>
+    <h2>Select Your Region:</h2>
+    <select id="regionSelect">
+      <option value="">Select Region</option>
+      <option value="Adilabad">Adilabad</option>
+      <option value="Nizamabad">Nizamabad</option>
+      <option value="Karimnagar">Karimnagar</option>
+      <option value="Warangal">Warangal</option>
+      <option value="Khammam">Khammam</option>
+      <option value="Mahbubnagar">Mahbubnagar</option>
+      <option value="Medak">Medak</option>
+      <option value="Nalgonda">Nalgonda</option>
+      <option value="Ranga Reddy">Ranga Reddy</option>
+      <option value="Hyderabad">Hyderabad</option>
+    </select>
+
+    <button onclick="goToPage3()">Check Storage</button>
+    <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
+    <div class="error" id="error"></div>
+  </div>
+
+  <!-- Page 3: Output Page -->
+  <div id="page3" style="display: none;">
+    <h2 id="cropTitle">Crop Information</h2>
+    <div class="result" id="result"></div>
+    <div class="result" id="regionStorage"></div>
+    <button onclick="goToPage2()" style="margin-top: 20px;">Search Again</button>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    window.onload = function () {
+      showOnlyPage("page1");
+    };
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
 </body>
 </html>
