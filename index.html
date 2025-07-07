@@ -12,7 +12,7 @@
   <!-- Page 1: Welcome Page -->
   <div id="page1">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions for their crops and storage centers nearby.</p>
+    <p>This app helps farmers find ideal storage conditions for their crops and nearby storage centers.</p>
     <button onclick="goToPage2()">Start</button>
   </div>
 
@@ -47,13 +47,8 @@
     <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
   </div>
 
-  <!-- ✅ Proper script loading -->
   <script src="script.js"></script>
   <script>
-    window.onload = function () {
-      showOnlyPage("page1");
-      populateDistrictDropdown();
-    };
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
     }
