@@ -1,56 +1,94 @@
+/* Global Styling */
 body {
   font-family: 'Segoe UI', sans-serif;
-  background-color: #eaf6f0;
-  margin: 0;
-  padding: 0;
-}
-
-.container {
-  max-width: 480px;
-  margin: 0 auto;
-  padding: 24px;
+  padding: 40px 20px;
+  max-width: 600px;
+  margin: auto;
+  background-color: #eaf7f1;
+  font-size: 18px;
   text-align: center;
 }
 
-.card {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-  margin-top: 20px;
+/* Headings */
+h1, h2 {
+  color: #2c3e50;
+  margin-bottom: 20px;
 }
 
-label {
-  font-weight: bold;
-  display: block;
-  margin-top: 16px;
-  text-align: left;
+/* Paragraphs */
+p {
+  font-size: 18px;
+  color: #444;
+  margin-bottom: 20px;
 }
 
-input, select {
+/* Input Fields & Buttons */
+input, select, button {
+  padding: 15px;
+  font-size: 18px;
   width: 100%;
-  padding: 10px;
-  margin-top: 6px;
-  border: 1px solid #ccc;
+  box-sizing: border-box;
   border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
 }
 
+/* Buttons */
 button {
-  margin-top: 20px;
-  padding: 12px 20px;
   background-color: #4CAF50;
   color: white;
   border: none;
-  border-radius: 8px;
   cursor: pointer;
-  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s;
 }
 
-.output {
-  margin-top: 24px;
-  background-color: #f0fff0;
-  padding: 16px;
-  border-radius: 10px;
-  color: #333;
+button:hover {
+  background-color: #388e3c;
+}
+
+/* Result and Error Blocks */
+.result, .error {
+  margin-top: 25px;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 8px;
   text-align: left;
+}
+
+/* Green background for result info */
+.result {
+  background-color: #e9fbe8;
+  color: #155724;
+}
+
+/* Red background for error messages */
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Autocomplete suggestion box */
+.suggestion-box {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.suggestion-box li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-box li:hover {
+  background-color: #f1f1f1;
 }
