@@ -7,6 +7,9 @@ function goToPage2() {
   document.getElementById("error").innerText = "";
   document.getElementById("cropInput").value = "";
   document.getElementById("suggestions").innerHTML = "";
+  document.getElementById("regionSelect").value = "";
+  document.getElementById("result").innerHTML = "";
+  document.getElementById("storageResults").innerHTML = "";
 }
 
 function goToPage3() {
@@ -14,28 +17,22 @@ function goToPage3() {
   const region = document.getElementById("regionSelect").value;
   const errorDiv = document.getElementById("error");
   const match = cropData.find(item => item.crop === cropInput);
-  const regionInfo = storageCenters[region];
 
-  if (!match && !regionInfo) {
-    errorDiv.innerText = "Enter a valid crop and select a region.";
+  if (!match) {
+    errorDiv.innerText = "Crop not found. Please check spelling.";
     return;
   }
 
-  document.getElementById("cropTitle").innerText = "Results";
+  errorDiv.innerText = "";
+  document.getElementById("cropTitle").innerText = match.crop.toUpperCase();
 
-  // Crop Storage Result
-  document.getElementById("result").innerHTML = match
-    ? `
+  document.getElementById("result").innerHTML = `
     <p><strong>Ideal Temperature:</strong> ${match.temperature}</p>
     <p><strong>Ideal Humidity:</strong> ${match.humidity}</p>
     <p><strong>Max Storage Period:</strong> ${match.storage}</p>
-  ` : `<p>No crop info available.</p>`;
+  `;
 
-  // Region Result
-  document.getElementById("regionStorage").innerHTML = regionInfo
-    ? `<p><strong>Nearby Storage Centers in ${region.toUpperCase()}:</strong><br><ul>${regionInfo.map(center => `<li>${center}</li>`).join('')}</ul></p>`
-    : `<p>No storage centers found for this region.</p>`;
-
+  displayStorageCenters(region);
   showOnlyPage("page3");
 }
 
@@ -68,7 +65,20 @@ function showSuggestions() {
   });
 }
 
-// Crop Dataset
+function displayStorageCenters(region) {
+  const centerDiv = document.getElementById("centerSection");
+  const storageList = document.getElementById("storageResults");
+  const matched = storageData.find(item => item.district.toLowerCase() === region.toLowerCase());
+
+  if (matched && matched.centers.length > 0) {
+    centerDiv.style.display = "block";
+    storageList.innerHTML = matched.centers.map(center => `<li>${center}</li>`).join('');
+  } else {
+    centerDiv.style.display = "block";
+    storageList.innerHTML = `<li>No storage centers found for ${region}.</li>`;
+  }
+}
+
 const cropData = [
   { crop: "wheat", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
   { crop: "rice", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
@@ -87,16 +97,121 @@ const cropData = [
   { crop: "cauliflower", temperature: "0–1°C", humidity: "90–95%", storage: "2–3 months" }
 ];
 
-// District Storage Units
-const storageCenters = {
-  "Adilabad": ["GMR Warehouse, Ashok Kumar Gadewar, Adilabad", "Ladda Agro Godowns, Jainad"],
-  "Nizamabad": ["Sri Ram Warehouse, Bodhan", "Nandi Cold Storage, Armoor"],
-  "Karimnagar": ["SVC Warehouse, Karimnagar", "Green Cold Storage, Jammikunta"],
-  "Warangal": ["Warangal Agro Center", "AgriTech Cold Storage"],
-  "Khammam": ["Swarna Storage, Khammam", "Delta Agro Cold Chain"],
-  "Mahbubnagar": ["Reddy Agro Warehouse", "Green Cold Solutions"],
-  "Medak": ["Sri Venkateswara Warehouse", "Medak Agro"],
-  "Nalgonda": ["Krishna Godowns", "Sunrise Agro Cold Storage"],
-  "Ranga Reddy": ["Farmers' Hub Storage", "Reddy Agro Park"],
-  "Hyderabad": ["Hyd Agro Central Storage", "AgroX Cold Chain Hub"]
+const storageData = [
+  {
+    district: "Adilabad",
+    centers: [
+      "GMR Warehouse, Ashok Kumar Gadewar, Adilabad",
+      "Ladda Agro Godowns, Jainad"
+      "Paharia Warehouse"
+      " Y S R Godown"
+    ]
+  },
+  {
+    district: "Karimnagar",
+    centers: [
+      "Srinivasa Cold Storage, Karimnagar",
+      "Godavari Agro Warehousing, Huzurabad",
+      "SVS Cold Chain, Jammikunta"
+      "Sri Gaddam Veeresham Rural Godown"
+    ]
+  },
+  {
+    district: "Nizamabad",
+    centers: [
+      "Nizam Agro Storage, Nizamabad",
+      "Green Leaf Cold Storage, Bodhan"
+      "SLNS Cold Storage, Munipally (V) Nizamabad district"
+      "Hi- Tech Cold Storage, Sy.No/ 463/A1 & 464,Armoor"
+    ]
+  },
+  {
+    district: "Warangal",
+    centers: [
+      "Bhavani Cold Storage, Warangal",
+      "Sree Lakshmi Warehouse, Parkal",
+      "TSWC Facility, Hanamkonda"
+      "Moksha cold storage,Enumamula"
+      "Saptagiri cold storage,Enumamula"
+      "Sri karthik cold storage,Hanamkonda"
+      "Venkatagiri cold storage,Hanamkonda"
+      "Vennela storage unit,gorrekunta"
+    ]
+  },
+  {
+    district: "Mahbubnagar",
+    centers: [
+      "Sri Sai Warehouse, Mahbubnagar",
+      "Mahindra Cold Chain, Bhootpur"
+      "Nandini Green House Farms Cold storages Private Limited"
+      "Sunyang Cold Storage & Warehousing Pvt. Ltd, Kethireddypally(V)"
+      "Nandini Green House Farms Cold storages Private Limited"
+    ]
+  },
+  {
+    district: "Khammam",
+    centers: [
+      "Khammam Agro Cold Storage, Khammam",
+      "Red Chilies Storage, Wyra"
+      "Gayathri cold storage"
+      "Swarnabharati cold storage"
+      "Krishna sai storage unit"
+    ]
+  },
+  {
+    district: "Nalgonda",
+    centers: [
+      "Pavan Warehouse, Nalgonda",
+      "Sunrise Cold Storage, Miryalaguda",
+      "TSWC Nalgonda"
+      "Sri Satyadeva Cold Storage, Dondapadu(V) Mellacheruvu(M) Nalgonda district"
+    ]
+  },
+  {
+    district: "Medak",
+    centers: [
+      "Medak Agro Storage, Medak",
+      "Greenfield Warehousing, Narsapur"
+      "Afsari Begum Ripening Chamber, Medak district"
+      "S S. Agro Fresh Cold Storage at Manoharabad (V), Toopran(M), Medak district"
+    ]
+  },
+  {
+    district: "Rangareddy",
+    centers: [
+      "Hyderabad Cold Storage, Shamshabad",
+      "Sri Venkateshwara Agro, Chevella"
+       "Aditya enterprises,Batasingaram"
+      "Venkateshwara cold storage, Thurkayamjal"
+    ]
+  },
+  {
+    district: "Hyderabad",
+    centers: [
+      "City Agro Godowns, Hyderabad",
+      "Urban Cold Chain, Secunderabad"
+      "Coldrush logistics"
+      "Akshaya cold storage pvt limited"
+    ]
+  }
+];
+
+// On first load
+window.onload = function () {
+  showOnlyPage("page1");
+  populateDistrictDropdown();
 };
+
+function populateDistrictDropdown() {
+  const select = document.getElementById("regionSelect");
+  storageData.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.district;
+    option.textContent = item.district;
+    select.appendChild(option);
+  });
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
