@@ -10,7 +10,7 @@ function goToPage2() {
   document.getElementById("regionSelect").value = "";
   document.getElementById("result").innerHTML = "";
   document.getElementById("storageResults").innerHTML = "";
-  document.getElementById("weatherSection").style.display = "none";
+  document.getElementById("weatherCard").style.display = "none";
 }
 
 function goToPage3() {
@@ -82,7 +82,7 @@ function displayStorageCenters(region) {
 
 function fetchWeather(region) {
   const apiKey = "9d615f5f1e48d9502a77a12229e0e639";
-  const weatherCard = document.getElementById("weatherSection");
+  const weatherCard = document.getElementById("weatherCard");
   weatherCard.style.display = "none";
 
   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${region}&appid=${apiKey}&units=metric`)
@@ -104,7 +104,7 @@ function fetchWeather(region) {
       `;
       weatherCard.style.display = "block";
     })
-    .catch(err => {
+    .catch(() => {
       weatherCard.innerHTML = "<p>Weather data not available.</p>";
       weatherCard.style.display = "block";
     });
@@ -171,11 +171,6 @@ const storageData = [
   }
 ];
 
-window.onload = function () {
-  showOnlyPage("page1");
-  populateDistrictDropdown();
-};
-
 function populateDistrictDropdown() {
   const select = document.getElementById("regionSelect");
   storageData.forEach(item => {
@@ -184,8 +179,4 @@ function populateDistrictDropdown() {
     option.textContent = item.district;
     select.appendChild(option);
   });
-}
-
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('service-worker.js');
 }
