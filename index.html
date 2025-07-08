@@ -12,7 +12,7 @@
   <!-- Page 1: Welcome Page -->
   <div id="page1">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions for their crops and storage centers nearby.</p>
+    <p>This app helps farmers find ideal storage conditions and storage centers nearby.</p>
     <button onclick="goToPage2()">Start</button>
   </div>
 
@@ -30,7 +30,7 @@
     </select>
 
     <button onclick="goToPage3()">Get Details</button>
-    <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
+    <button onclick="goToPage1()" style="background-color: gray;">Back</button>
     <div class="error" id="error"></div>
   </div>
 
@@ -44,18 +44,16 @@
       <ul id="storageResults"></ul>
     </div>
 
-    <div id="weatherSection" style="display: none;" class="weather-card">
-      <h3>3-Day Weather Forecast</h3>
-      <div id="weatherForecast"></div>
-    </div>
+    <div class="result" id="weatherCard" style="display: none;"></div>
 
-    <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
+    <button onclick="goToPage2()">Search Another Crop</button>
   </div>
 
   <script src="script.js"></script>
   <script>
     window.onload = function () {
       showOnlyPage("page1");
+      populateDistrictDropdown();
     };
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('service-worker.js');
