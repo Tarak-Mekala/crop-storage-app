@@ -17,7 +17,7 @@ function goToPage3() {
   const cropInput = document.getElementById("cropInput").value.trim().toLowerCase();
   const region = document.getElementById("regionSelect").value;
   const errorDiv = document.getElementById("error");
-  const match = cropData.find(item => item.crop === cropInput);
+  const match = cropData.find(item => item.crop.toLowerCase() === cropInput);
 
   if (!match) {
     errorDiv.innerText = "Crop not found. Please check spelling.";
@@ -27,9 +27,9 @@ function goToPage3() {
   errorDiv.innerText = "";
   document.getElementById("cropTitle").innerText = match.crop.toUpperCase();
   document.getElementById("result").innerHTML = `
-    <p>🌡️ Ideal Temperature: ${match.temperature}</p>
-    <p>💧 Ideal Humidity: ${match.humidity}</p>
-    <p>📦 Max Storage Period: ${match.storage}</p>
+    <p><strong>🌡️ Ideal Temperature:</strong> ${match.temperature}</p>
+    <p><strong>💧 Ideal Humidity:</strong> ${match.humidity}</p>
+    <p><strong>🧊 Max Storage Period:</strong> ${match.storage}</p>
   `;
 
   displayStorageCenters(region);
@@ -38,9 +38,9 @@ function goToPage3() {
 }
 
 function showOnlyPage(pageId) {
-  ["page1", "page2", "page3"].forEach(id => {
-    document.getElementById(id).style.display = "none";
-  });
+  document.getElementById("page1").style.display = "none";
+  document.getElementById("page2").style.display = "none";
+  document.getElementById("page3").style.display = "none";
   document.getElementById(pageId).style.display = "block";
 }
 
@@ -52,7 +52,7 @@ function showSuggestions() {
   if (!input) return;
 
   const matches = cropData
-    .filter(item => item.crop.startsWith(input))
+    .filter(item => item.crop.toLowerCase().startsWith(input))
     .map(item => item.crop);
 
   matches.forEach(crop => {
@@ -66,17 +66,6 @@ function showSuggestions() {
   });
 }
 
-function startVoiceSearch() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = "en-IN";
-  recognition.onresult = function (event) {
-    const transcript = event.results[0][0].transcript;
-    document.getElementById("cropInput").value = transcript.toLowerCase();
-    showSuggestions();
-  };
-  recognition.start();
-}
-
 function displayStorageCenters(region) {
   const centerDiv = document.getElementById("centerSection");
   const storageList = document.getElementById("storageResults");
@@ -84,7 +73,7 @@ function displayStorageCenters(region) {
 
   if (matched && matched.centers.length > 0) {
     centerDiv.style.display = "block";
-    storageList.innerHTML = matched.centers.map(center => `<li>📍 ${center}</li>`).join('');
+    storageList.innerHTML = matched.centers.map(center => `<li>${center}</li>`).join('');
   } else {
     centerDiv.style.display = "block";
     storageList.innerHTML = `<li>No storage centers found for ${region}.</li>`;
@@ -108,7 +97,7 @@ function fetchWeather(region) {
               <p><strong>${new Date(day.dt_txt).toDateString()}</strong></p>
               <p>🌡️ Temp: ${day.main.temp}°C</p>
               <p>💧 Humidity: ${day.main.humidity}%</p>
-              <p>${day.weather[0].main}</p>
+              <p>🌥️ ${day.weather[0].main}</p>
             </div>
           `).join('')}
         </div>
@@ -121,6 +110,31 @@ function fetchWeather(region) {
     });
 }
 
+function startVoiceSearch() {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Your browser does not support voice recognition.");
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "en-IN";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.onresult = function (event) {
+    const transcript = event.results[0][0].transcript.toLowerCase();
+    document.getElementById("cropInput").value = transcript;
+    showSuggestions();
+  };
+
+  recognition.onerror = function (event) {
+    alert("Voice recognition error: " + event.error);
+  };
+
+  recognition.start();
+}
+
+// --- CROP DATA ---
 const cropData = [
   { crop: "wheat", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
   { crop: "rice", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
@@ -131,22 +145,59 @@ const cropData = [
   { crop: "chillies", temperature: "8–10°C", humidity: "70–75%", storage: "20 days" },
   { crop: "mango", temperature: "10–13°C", humidity: "85–90%", storage: "28 days" },
   { crop: "banana", temperature: "13–14°C", humidity: "85–95%", storage: "18–22 days" },
-  { crop: "sugarcane", temperature: "12–14°C", humidity: "70–75%", storage: "3–5 months" }
+  { crop: "sugarcane", temperature: "12–14°C", humidity: "70–75%", storage: "3–5 months" },
+  { crop: "groundnut", temperature: "6–10°C", humidity: "70–80%", storage: "3–6 months" },
+  { crop: "cotton", temperature: "10–15°C", humidity: "65–75%", storage: "6–8 months" },
+  { crop: "pulses", temperature: "5–10°C", humidity: "65–75%", storage: "6–12 months" },
+  { crop: "cabbage", temperature: "0–1°C", humidity: "90–95%", storage: "2–3 months" },
+  { crop: "cauliflower", temperature: "0–1°C", humidity: "90–95%", storage: "2–3 months" }
 ];
 
+// --- DISTRICT STORAGE DATA ---
 const storageData = [
-  { district: "Adilabad", centers: ["GMR Warehouse", "Ladda Agro Godowns", "Paharia Warehouse", "Y S R Godown"] },
-  { district: "Karimnagar", centers: ["Srinivasa Cold Storage", "Godavari Agro Warehousing", "SVS Cold Chain", "Sri Gaddam Veeresham Rural Godown"] },
-  { district: "Nizamabad", centers: ["Nizam Agro Storage", "Green Leaf Cold Storage", "SLNS Cold Storage", "Hi-Tech Cold Storage"] },
-  { district: "Warangal", centers: ["Bhavani Cold Storage", "Sree Lakshmi Warehouse", "TSWC Facility", "Moksha cold storage", "Saptagiri cold storage", "Sri karthik cold storage", "Venkatagiri cold storage", "Vennela storage unit"] },
-  { district: "Mahbubnagar", centers: ["Sri Sai Warehouse", "Mahindra Cold Chain", "Nandini Cold storages", "Sunyang Cold Storage", "Green House Cold storages"] },
-  { district: "Khammam", centers: ["Khammam Agro Cold Storage", "Red Chilies Storage", "Gayathri cold storage", "Swarnabharati cold storage", "Krishna sai storage unit"] },
-  { district: "Nalgonda", centers: ["Pavan Warehouse", "Sunrise Cold Storage", "TSWC Nalgonda", "Sri Satyadeva Cold Storage"] },
-  { district: "Medak", centers: ["Medak Agro Storage", "Greenfield Warehousing", "Afsari Begum Ripening Chamber", "S.S. Agro Fresh Cold Storage"] },
-  { district: "Rangareddy", centers: ["Hyderabad Cold Storage", "Sri Venkateshwara Agro", "Aditya Enterprises", "Venkateshwara cold storage"] },
-  { district: "Hyderabad", centers: ["City Agro Godowns", "Urban Cold Chain", "Coldrush logistics", "Akshaya cold storage"] }
+  {
+    district: "Adilabad",
+    centers: ["GMR Warehouse", "Ladda Agro Godowns", "Paharia Warehouse", "Y S R Godown"]
+  },
+  {
+    district: "Karimnagar",
+    centers: ["Srinivasa Cold Storage", "Godavari Agro Warehousing", "SVS Cold Chain", "Sri Gaddam Veeresham Rural Godown"]
+  },
+  {
+    district: "Nizamabad",
+    centers: ["Nizam Agro Storage", "Green Leaf Cold Storage", "SLNS Cold Storage", "Hi-Tech Cold Storage"]
+  },
+  {
+    district: "Warangal",
+    centers: ["Bhavani Cold Storage", "Sree Lakshmi Warehouse", "TSWC Facility", "Moksha Cold Storage", "Saptagiri Cold Storage", "Sri Karthik Cold Storage", "Venkatagiri Cold Storage", "Vennela Storage Unit"]
+  },
+  {
+    district: "Mahbubnagar",
+    centers: ["Sri Sai Warehouse", "Mahindra Cold Chain", "Nandini Cold Storages", "Sunyang Cold Storage", "Green House Cold Storages"]
+  },
+  {
+    district: "Khammam",
+    centers: ["Khammam Agro Cold Storage", "Red Chilies Storage", "Gayathri Cold Storage", "Swarnabharati Cold Storage", "Krishna Sai Storage Unit"]
+  },
+  {
+    district: "Nalgonda",
+    centers: ["Pavan Warehouse", "Sunrise Cold Storage", "TSWC Nalgonda", "Sri Satyadeva Cold Storage"]
+  },
+  {
+    district: "Medak",
+    centers: ["Medak Agro Storage", "Greenfield Warehousing", "Afsari Begum Ripening Chamber", "S S Agro Fresh Cold Storage"]
+  },
+  {
+    district: "Rangareddy",
+    centers: ["Hyderabad Cold Storage", "Sri Venkateshwara Agro", "Aditya Enterprises", "Venkateshwara Cold Storage"]
+  },
+  {
+    district: "Hyderabad",
+    centers: ["City Agro Godowns", "Urban Cold Chain", "Coldrush Logistics", "Akshaya Cold Storage"]
+  }
 ];
 
+// --- INIT ---
 window.onload = function () {
   showOnlyPage("page1");
   populateDistrictDropdown();
@@ -154,6 +205,7 @@ window.onload = function () {
 
 function populateDistrictDropdown() {
   const select = document.getElementById("regionSelect");
+  select.innerHTML = '<option value="">-- Select District --</option>';
   storageData.forEach(item => {
     const option = document.createElement("option");
     option.value = item.district;
@@ -162,6 +214,7 @@ function populateDistrictDropdown() {
   });
 }
 
+// Register Service Worker
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('service-worker.js');
 }
