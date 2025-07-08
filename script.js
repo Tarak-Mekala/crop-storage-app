@@ -10,7 +10,7 @@ function goToPage2() {
   document.getElementById("regionSelect").value = "";
   document.getElementById("result").innerHTML = "";
   document.getElementById("storageResults").innerHTML = "";
-  document.getElementById("weatherCard").style.display = "none";
+  document.getElementById("weatherSection").style.display = "none";
 }
 
 function goToPage3() {
@@ -82,7 +82,7 @@ function displayStorageCenters(region) {
 
 function fetchWeather(region) {
   const apiKey = "9d615f5f1e48d9502a77a12229e0e639";
-  const weatherCard = document.getElementById("weatherCard");
+  const weatherCard = document.getElementById("weatherSection");
   weatherCard.style.display = "none";
 
   fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${region}&appid=${apiKey}&units=metric`)
