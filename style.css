@@ -2,103 +2,89 @@ body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  text-align: center;
   font-weight: bold;
 }
 
-/* Page Backgrounds */
+.page {
+  min-height: 100vh;
+  padding: 30px;
+  text-align: center;
+}
+
+/* Page backgrounds */
 #page1 {
-  background: linear-gradient(135deg, #ffeb3b, #fff, #4caf50);
-  min-height: 100vh;
-  padding: 50px 20px;
+  background: linear-gradient(to bottom right, yellow, white, lightgreen);
 }
-
 #page2 {
-  background-color: beige;
-  min-height: 100vh;
-  padding: 50px 20px;
+  background-color: #8B4513; /* brown */
+  color: white;
+}
+#page3 {
+  background: url('https://images.unsplash.com/photo-1598958231400-39a3c3f68f64?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
+  background-size: cover;
+  color: white;
 }
 
-#page3 {
-  background-color: pink;
-  min-height: 100vh;
-  padding: 50px 20px;
+/* Text elements */
+h1, h2, h3, p {
+  margin-bottom: 20px;
+}
+
+/* Input and button styles */
+input, select {
+  padding: 12px;
+  width: 80%;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
 }
 
 button {
-  padding: 15px 25px;
+  padding: 12px 20px;
   font-size: 18px;
-  border: none;
-  border-radius: 8px;
   margin: 10px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 button:hover {
   transform: scale(1.05);
 }
 
-button:active {
-  transform: scale(0.97);
-}
-
-#page1 button {
+.start-btn {
   background-color: skyblue;
   color: black;
 }
 
-.back-btn {
-  background-color: gray;
-  color: white;
-}
-
-.input-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-}
-
-input[type="text"] {
-  padding: 15px;
-  font-size: 16px;
-  width: 80%;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
-
 .mic-btn {
-  background: #ff4081;
-  color: white;
-  padding: 14px;
-  margin-left: 8px;
+  position: absolute;
+  right: 10%;
+  top: 10px;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
-select {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 8px;
-  margin-top: 10px;
+.input-group {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
-}
-
+/* Suggestion Box */
 .suggestion-box {
   list-style: none;
-  padding: 0;
   background: white;
   border: 1px solid #ccc;
+  text-align: left;
   max-height: 150px;
   overflow-y: auto;
-  position: absolute;
-  width: 80%;
-  left: 10%;
-  z-index: 999;
-  text-align: left;
+  margin: 0;
+  padding: 0;
 }
 
 .suggestion-box li {
@@ -110,15 +96,23 @@ select {
   background-color: #eee;
 }
 
+/* Dialog cards */
 .dialog {
-  background-color: violet;
-  color: white;
+  background-color: #eee;
+  border-radius: 10px;
   padding: 20px;
-  border-radius: 15px;
-  margin: 15px auto;
-  max-width: 500px;
+  margin: 20px auto;
+  width: 80%;
+  text-align: left;
+  font-size: 18px;
 }
 
+.violet {
+  background-color: #b19cd9;
+  color: white;
+}
+
+/* Weather forecast */
 .forecast {
   display: flex;
   justify-content: space-around;
@@ -126,10 +120,10 @@ select {
 }
 
 .forecast-day {
-  background: rgba(255, 255, 255, 0.1);
+  background-color: #ffffff33;
+  border-radius: 8px;
   padding: 10px;
   margin: 10px;
-  border-radius: 12px;
-  flex: 1;
-  min-width: 120px;
+  width: 120px;
+  text-align: center;
 }
