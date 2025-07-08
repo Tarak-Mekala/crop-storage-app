@@ -2,48 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agri Sathi</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
+
   <!-- Page 1 -->
-  <div id="page1">
+  <div id="page1" class="page">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions and storage centers.</p>
-    <button onclick="goToPage2()">Start</button>
+    <p>Find ideal crop storage conditions and nearby storage centers.</p>
+    <button class="start-btn" onclick="goToPage2()">Start</button>
   </div>
 
   <!-- Page 2 -->
-  <div id="page2" style="display: none;">
+  <div id="page2" class="page" style="display:none;">
     <h2>Enter Crop Name</h2>
-    <div class="input-box">
+    <div class="input-group">
       <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" />
       <button class="mic-btn" onclick="startVoiceSearch()">🎤</button>
       <ul id="suggestions" class="suggestion-box"></ul>
     </div>
+
     <h2>Select Your District</h2>
     <select id="regionSelect">
       <option value="">-- Select District --</option>
     </select>
-    <div class="error" id="error"></div>
+
     <button onclick="goToPage3()">Get Details</button>
-    <button onclick="goToPage1()" class="back-btn">Back</button>
+    <button onclick="goToPage1()">Back</button>
+    <div class="error" id="error"></div>
   </div>
 
   <!-- Page 3 -->
-  <div id="page3" style="display: none;">
+  <div id="page3" class="page" style="display:none;">
     <h2 id="cropTitle">Crop Name</h2>
-    <div class="dialog" id="result"></div>
 
-    <div class="dialog" id="centerSection" style="display: none;">
-      <h3>Nearby Storage Centers:</h3>
+    <div class="dialog violet" id="result"></div>
+    <div class="dialog violet" id="centerSection" style="display:none;">
+      <h3>Storage Centers Nearby:</h3>
       <ul id="storageResults"></ul>
     </div>
+    <div class="dialog violet" id="weatherCard" style="display:none;"></div>
 
-    <div class="dialog" id="weatherCard" style="display: none;"></div>
-
-    <button onclick="goToPage2()" class="back-btn">Search Another Crop</button>
+    <button onclick="goToPage2()">Search Another</button>
   </div>
 
   <script src="script.js"></script>
