@@ -1,83 +1,108 @@
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(to bottom right, #2196F3, #ffffff, #4CAF50);
-  color: #222;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  min-height: 100vh;
-}
-
-.page {
-  padding: 30px;
-  animation: fadeIn 0.5s ease;
-}
-
-h1, h2, h3, p, li, button, select, input {
   font-weight: bold;
 }
 
-input, select {
-  padding: 12px;
-  font-size: 16px;
-  border: 2px solid #ccc;
-  border-radius: 6px;
-  margin-bottom: 15px;
-  width: 80%;
-  max-width: 400px;
+/* Page Backgrounds */
+#page1 {
+  background: linear-gradient(135deg, #ffeb3b, #fff, #4caf50);
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+#page2 {
+  background-color: beige;
+  min-height: 100vh;
+  padding: 50px 20px;
+}
+
+#page3 {
+  background-color: pink;
+  min-height: 100vh;
+  padding: 50px 20px;
 }
 
 button {
-  padding: 12px 24px;
-  font-size: 16px;
-  margin: 10px;
+  padding: 15px 25px;
+  font-size: 18px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  margin: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  font-weight: bold;
-}
-
-#page1 button {
-  background-color: #fdd835; /* Yellow */
-  color: #000;
-}
-
-#page1 button:hover {
-  background-color: #fbc02d;
-  transform: scale(1.05);
+  transition: 0.3s ease;
 }
 
 button:hover {
-  background-color: #0288d1;
-  color: white;
   transform: scale(1.05);
 }
 
+button:active {
+  transform: scale(0.97);
+}
+
+#page1 button {
+  background-color: skyblue;
+  color: black;
+}
+
 .back-btn {
-  background-color: #888;
+  background-color: gray;
   color: white;
+}
+
+.input-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+input[type="text"] {
+  padding: 15px;
+  font-size: 16px;
+  width: 80%;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.mic-btn {
+  background: #ff4081;
+  color: white;
+  padding: 14px;
+  margin-left: 8px;
+}
+
+select {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 8px;
+  margin-top: 10px;
 }
 
 .error {
   color: red;
   margin-top: 10px;
-  font-weight: bold;
 }
 
 .suggestion-box {
   list-style: none;
   padding: 0;
-  margin: 0 auto;
-  max-width: 400px;
-  background-color: #f1f1f1;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  background: white;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 80%;
+  left: 10%;
+  z-index: 999;
   text-align: left;
 }
 
 .suggestion-box li {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
   cursor: pointer;
 }
 
@@ -85,33 +110,13 @@ button:hover {
   background-color: #eee;
 }
 
-.input-container {
-  position: relative;
-  display: inline-block;
-}
-
-.mic-button {
-  position: absolute;
-  right: 12px;
-  top: 8px;
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.result {
-  margin: 20px auto;
-  max-width: 500px;
-  text-align: left;
-}
-
-.weather-card {
-  margin-top: 30px;
-  background: #e3f2fd;
+.dialog {
+  background-color: violet;
+  color: white;
   padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  border-radius: 15px;
+  margin: 15px auto;
+  max-width: 500px;
 }
 
 .forecast {
@@ -121,20 +126,10 @@ button:hover {
 }
 
 .forecast-day {
-  background-color: #ffffff;
-  padding: 12px;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
   margin: 10px;
-  width: 150px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.forecast-day:hover {
-  transform: scale(1.05);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  border-radius: 12px;
+  flex: 1;
+  min-width: 120px;
 }
