@@ -12,15 +12,15 @@
   <!-- Page 1: Welcome Page -->
   <div id="page1">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions for crops and nearby storage units, along with a weather forecast.</p>
+    <p>This app helps farmers find ideal storage conditions for their crops and storage centers nearby.</p>
     <button onclick="goToPage2()">Start</button>
   </div>
 
   <!-- Page 2: Input Page -->
   <div id="page2" style="display: none;">
     <h2>Enter Crop Name</h2>
-    <div class="input-wrapper">
-      <input type="text" id="cropInput" placeholder="Type crop name" oninput="showSuggestions()" autocomplete="off" />
+    <div style="position: relative;">
+      <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
       <ul id="suggestions" class="suggestion-box"></ul>
     </div>
 
@@ -30,14 +30,13 @@
     </select>
 
     <button onclick="goToPage3()">Get Details</button>
-    <button onclick="goToPage1()" class="back-btn">Back</button>
+    <button onclick="goToPage1()" style="margin-top: 10px; background-color: gray;">Back</button>
     <div class="error" id="error"></div>
   </div>
 
   <!-- Page 3: Output Page -->
   <div id="page3" style="display: none;">
     <h2 id="cropTitle">Crop Name</h2>
-
     <div class="result" id="result"></div>
 
     <div class="result" id="centerSection" style="display: none;">
@@ -45,7 +44,10 @@
       <ul id="storageResults"></ul>
     </div>
 
-    <div class="weather-card" id="weatherCard" style="display: none;"></div>
+    <div id="weatherSection" style="display: none;" class="weather-card">
+      <h3>3-Day Weather Forecast</h3>
+      <div id="weatherForecast"></div>
+    </div>
 
     <button onclick="goToPage2()" style="margin-top: 20px;">Search Another Crop</button>
   </div>
