@@ -5,37 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Agri Sathi</title>
   <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
 </head>
 <body>
 
-  <!-- Page 1: Welcome Page -->
-  <div id="page1">
+  <!-- Page 1: Welcome -->
+  <div id="page1" class="page">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions and storage centers nearby.</p>
-    <button onclick="goToPage2()">Start</button>
+    <p>This app helps farmers find ideal storage conditions for their crops and storage centers nearby.</p>
+    <button onclick="goToPage2()" class="animated-button">Start</button>
   </div>
 
-  <!-- Page 2: Input Page -->
-  <div id="page2" style="display: none;">
+  <!-- Page 2: Crop Input -->
+  <div id="page2" class="page" style="display: none;">
     <h2>Enter Crop Name</h2>
-    <div style="position: relative;">
+    <div class="voice-input-container">
       <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" autocomplete="off" />
-      <ul id="suggestions" class="suggestion-box"></ul>
+      <button onclick="startVoiceSearch()">🎤</button>
     </div>
+    <ul id="suggestions" class="suggestion-box"></ul>
 
     <h2>Select Your District</h2>
     <select id="regionSelect">
       <option value="">-- Select District --</option>
     </select>
 
-    <button onclick="goToPage3()">Get Details</button>
-    <button onclick="goToPage1()" style="background-color: gray;">Back</button>
+    <button onclick="goToPage3()" class="animated-button">Get Details</button>
+    <button onclick="goToPage1()" class="animated-button gray">Back</button>
     <div class="error" id="error"></div>
   </div>
 
-  <!-- Page 3: Output Page -->
-  <div id="page3" style="display: none;">
+  <!-- Page 3: Results -->
+  <div id="page3" class="page" style="display: none;">
     <h2 id="cropTitle">Crop Name</h2>
     <div class="result" id="result"></div>
 
@@ -46,18 +46,9 @@
 
     <div class="result" id="weatherCard" style="display: none;"></div>
 
-    <button onclick="goToPage2()">Search Another Crop</button>
+    <button onclick="goToPage2()" class="animated-button">Search Another Crop</button>
   </div>
 
   <script src="script.js"></script>
-  <script>
-    window.onload = function () {
-      showOnlyPage("page1");
-      populateDistrictDropdown();
-    };
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
 </body>
 </html>
