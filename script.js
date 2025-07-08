@@ -10,6 +10,7 @@ function goToPage2() {
   document.getElementById("regionSelect").value = "";
   document.getElementById("result").innerHTML = "";
   document.getElementById("storageResults").innerHTML = "";
+  document.getElementById("weatherCard").style.display = "none";
 }
 
 function goToPage3() {
@@ -25,7 +26,6 @@ function goToPage3() {
 
   errorDiv.innerText = "";
   document.getElementById("cropTitle").innerText = match.crop.toUpperCase();
-
   document.getElementById("result").innerHTML = `
     <p><strong>Ideal Temperature:</strong> ${match.temperature}</p>
     <p><strong>Ideal Humidity:</strong> ${match.humidity}</p>
@@ -33,6 +33,7 @@ function goToPage3() {
   `;
 
   displayStorageCenters(region);
+  fetchWeather(region);
   showOnlyPage("page3");
 }
 
@@ -79,7 +80,36 @@ function displayStorageCenters(region) {
   }
 }
 
-// Crop database
+function fetchWeather(region) {
+  const apiKey = "9d615f5f1e48d9502a77a12229e0e639";
+  const weatherCard = document.getElementById("weatherCard");
+  weatherCard.style.display = "none";
+
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${region}&appid=${apiKey}&units=metric`)
+    .then(res => res.json())
+    .then(data => {
+      const forecast = data.list.filter(item => item.dt_txt.includes("12:00:00")).slice(0, 3);
+      weatherCard.innerHTML = `
+        <h3>3-Day Weather Forecast</h3>
+        <div class="forecast">
+          ${forecast.map(day => `
+            <div class="forecast-day">
+              <p><strong>${new Date(day.dt_txt).toDateString()}</strong></p>
+              <p>🌡️ Temp: ${day.main.temp}°C</p>
+              <p>💧 Humidity: ${day.main.humidity}%</p>
+              <p>🌥️ ${day.weather[0].main}</p>
+            </div>
+          `).join('')}
+        </div>
+      `;
+      weatherCard.style.display = "block";
+    })
+    .catch(err => {
+      weatherCard.innerHTML = "<p>Weather data not available.</p>";
+      weatherCard.style.display = "block";
+    });
+}
+
 const cropData = [
   { crop: "wheat", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
   { crop: "rice", temperature: "10–15°C", humidity: "65–70%", storage: "6–12 months" },
@@ -98,106 +128,49 @@ const cropData = [
   { crop: "cauliflower", temperature: "0–1°C", humidity: "90–95%", storage: "2–3 months" }
 ];
 
-// District storage centers
 const storageData = [
   {
     district: "Adilabad",
-    centers: [
-      "GMR Warehouse, Ashok Kumar Gadewar, Adilabad",
-      "Ladda Agro Godowns, Jainad",
-      "Paharia Warehouse",
-      "Y S R Godown"
-    ]
+    centers: ["GMR Warehouse", "Ladda Agro Godowns", "Paharia Warehouse", "Y S R Godown"]
   },
   {
     district: "Karimnagar",
-    centers: [
-      "Srinivasa Cold Storage, Karimnagar",
-      "Godavari Agro Warehousing, Huzurabad",
-      "SVS Cold Chain, Jammikunta",
-      "Sri Gaddam Veeresham Rural Godown"
-    ]
+    centers: ["Srinivasa Cold Storage", "Godavari Agro Warehousing", "SVS Cold Chain", "Sri Gaddam Veeresham Rural Godown"]
   },
   {
     district: "Nizamabad",
-    centers: [
-      "Nizam Agro Storage, Nizamabad",
-      "Green Leaf Cold Storage, Bodhan",
-      "SLNS Cold Storage, Munipally (V)",
-      "Hi-Tech Cold Storage, Armoor"
-    ]
+    centers: ["Nizam Agro Storage", "Green Leaf Cold Storage", "SLNS Cold Storage", "Hi-Tech Cold Storage"]
   },
   {
     district: "Warangal",
-    centers: [
-      "Bhavani Cold Storage, Warangal",
-      "Sree Lakshmi Warehouse, Parkal",
-      "TSWC Facility, Hanamkonda",
-      "Moksha Cold Storage, Enumamula",
-      "Saptagiri Cold Storage, Enumamula",
-      "Sri Karthik Cold Storage, Hanamkonda",
-      "Venkatagiri Cold Storage, Hanamkonda",
-      "Vennela Storage Unit, Gorrekunta"
-    ]
+    centers: ["Bhavani Cold Storage", "Sree Lakshmi Warehouse", "TSWC Facility", "Moksha cold storage", "Saptagiri cold storage", "Sri karthik cold storage", "Venkatagiri cold storage", "Vennela storage unit"]
   },
   {
     district: "Mahbubnagar",
-    centers: [
-      "Sri Sai Warehouse, Mahbubnagar",
-      "Mahindra Cold Chain, Bhootpur",
-      "Nandini Green House Farms Cold Storage Pvt Ltd",
-      "Sunyang Cold Storage & Warehousing, Kethireddypally"
-    ]
+    centers: ["Sri Sai Warehouse", "Mahindra Cold Chain", "Nandini Cold storages", "Sunyang Cold Storage", "Green House Cold storages"]
   },
   {
     district: "Khammam",
-    centers: [
-      "Khammam Agro Cold Storage",
-      "Red Chilies Storage, Wyra",
-      "Gayathri Cold Storage",
-      "Swarnabharati Cold Storage",
-      "Krishna Sai Storage Unit"
-    ]
+    centers: ["Khammam Agro Cold Storage", "Red Chilies Storage", "Gayathri cold storage", "Swarnabharati cold storage", "Krishna sai storage unit"]
   },
   {
     district: "Nalgonda",
-    centers: [
-      "Pavan Warehouse, Nalgonda",
-      "Sunrise Cold Storage, Miryalaguda",
-      "TSWC Nalgonda",
-      "Sri Satyadeva Cold Storage, Dondapadu"
-    ]
+    centers: ["Pavan Warehouse", "Sunrise Cold Storage", "TSWC Nalgonda", "Sri Satyadeva Cold Storage"]
   },
   {
     district: "Medak",
-    centers: [
-      "Medak Agro Storage",
-      "Greenfield Warehousing, Narsapur",
-      "Afsari Begum Ripening Chamber",
-      "S.S. Agro Fresh Cold Storage, Manoharabad"
-    ]
+    centers: ["Medak Agro Storage", "Greenfield Warehousing", "Afsari Begum Ripening Chamber", "S.S. Agro Fresh Cold Storage"]
   },
   {
     district: "Rangareddy",
-    centers: [
-      "Hyderabad Cold Storage, Shamshabad",
-      "Sri Venkateshwara Agro, Chevella",
-      "Aditya Enterprises, Batasingaram",
-      "Venkateshwara Cold Storage, Thurkayamjal"
-    ]
+    centers: ["Hyderabad Cold Storage", "Sri Venkateshwara Agro", "Aditya Enterprises", "Venkateshwara cold storage"]
   },
   {
     district: "Hyderabad",
-    centers: [
-      "City Agro Godowns, Hyderabad",
-      "Urban Cold Chain, Secunderabad",
-      "Coldrush Logistics",
-      "Akshaya Cold Storage Pvt Ltd"
-    ]
+    centers: ["City Agro Godowns", "Urban Cold Chain", "Coldrush logistics", "Akshaya cold storage"]
   }
 ];
 
-// On load
 window.onload = function () {
   showOnlyPage("page1");
   populateDistrictDropdown();
