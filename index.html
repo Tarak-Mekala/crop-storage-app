@@ -4,52 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Agri Sathi</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.json"/>
 </head>
 <body>
-  <div id="page1">
-    <div class="language-toggle">
-      <label>
-        <input type="checkbox" id="langSwitch" onchange="toggleLanguage()" />
-        తెలుగు
-      </label>
-    </div>
+  <div id="page1" class="page">
     <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal storage conditions and nearby centers.</p>
+    <p>This app helps you find ideal crop storage info and nearby centers.</p>
     <button class="start-btn" onclick="goToPage2()">Start</button>
-    <p class="emoji-row">🌾🌿🌾</p>
+    <div class="paddy-emojis">🌾🌾🌾</div>
   </div>
 
-  <div id="page2" style="display: none;">
-    <h2>Select Crop & District</h2>
-    <div class="input-block">
-      <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" />
-      <button onclick="startVoiceSearch()">🎙️</button>
-      <ul id="suggestions"></ul>
-      <p id="listeningNote">🎤 Listening...</p>
+  <div id="page2" class="page" style="display: none;">
+    <div class="top-bar">
+      <button class="lang-toggle" onclick="toggleLanguage()">🌐 తెలుగు</button>
+    </div>
+    <h2 class="bold">Enter Crop Name</h2>
+    <div class="input-area">
+      <input type="text" id="cropInput" placeholder="Type crop name..." oninput="showSuggestions()" autocomplete="off"/>
+      <button onclick="startVoiceSearch()">🎤</button>
+      <div id="listeningNote" class="note"></div>
+      <ul id="suggestions" class="suggestion-box"></ul>
     </div>
 
-    <div class="input-block">
-      <select id="regionSelect">
-        <option value="">-- Select District --</option>
-      </select>
-    </div>
+    <h2 class="bold">Select Your District</h2>
+    <select id="regionSelect"></select>
 
-    <button id="detailsBtn" onclick="goToPage3()">GET DETAILS</button>
-    <button class="backBtn" onclick="goToPage1()">Back</button>
+    <button class="details-btn" onclick="goToPage3()">Get Details</button>
     <div class="error" id="error"></div>
+    <button class="back-btn" onclick="goToPage1()">← Back</button>
   </div>
 
-  <div id="page3" style="display: none;">
-    <h2 id="cropTitle">Crop Info</h2>
-    <div class="dialog violet-box" id="result"></div>
-    <div class="dialog violet-box" id="centerSection">
-      <h3>Nearby Storage Centers:</h3>
+  <div id="page3" class="page" style="display: none;">
+    <h2 id="cropTitle" class="bold">Crop</h2>
+    <div class="dialog-box" id="result"></div>
+    <div class="dialog-box" id="centerSection">
+      <h3>📦 Storage Centers</h3>
       <ul id="storageResults"></ul>
     </div>
-    <div class="dialog violet-box" id="weatherCard"></div>
-    <button onclick="goToPage2()">Search Another Crop</button>
+    <div class="dialog-box" id="weatherCard"></div>
+    <button class="back-btn" onclick="goToPage2()">🔁 Search Another</button>
   </div>
 
   <script src="script.js"></script>
