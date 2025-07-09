@@ -1,207 +1,122 @@
-/* Universal Styles */
 body {
-  margin: 0;
   font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  padding: 0;
   font-weight: bold;
-  color: #222;
-  background: #fff;
 }
 
-/* Page Sections */
 #page1 {
   height: 100vh;
-  background: linear-gradient(to bottom right, #ffeb3b, #fff176, #fdd835);
+  background: linear-gradient(to bottom, yellow, white, green);
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   text-align: center;
-  padding: 2rem;
+}
+
+#startBtn {
+  background-color: skyblue;
+  padding: 20px 40px;
+  font-size: 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.paddy-emojis {
+  font-size: 30px;
+  margin-top: 15px;
 }
 
 #page2 {
+  background: linear-gradient(to bottom, #014421, #056608, #0a7c17);
+  color: white;
+  padding: 30px;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #8B4513, #A0522D, #CD853F);
-  padding: 2rem;
 }
 
 #page3 {
+  background: linear-gradient(to bottom, #013220, #026440, #039c5a);
+  color: white;
+  padding: 30px;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #006400, #228B22, #2E8B57);
-  padding: 2rem;
-  color: #fff;
 }
 
-/* Common Headings */
-h1, h2, h3 {
-  font-weight: bold;
-  margin-bottom: 1rem;
+.input-block {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
 }
 
-p {
-  margin: 0.5rem 0;
-}
-
-/* Buttons */
-button {
-  padding: 10px 20px;
+input, select {
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 8px;
   border: none;
-  font-weight: bold;
-  font-size: 1rem;
-  border-radius: 5px;
+  width: 90%;
+}
+
+button {
+  padding: 12px 25px;
+  margin-top: 10px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
   cursor: pointer;
-  margin-top: 1rem;
-  transition: all 0.3s ease;
 }
 
-button:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
-}
-
-.start-button {
-  background-color: skyblue;
-  color: black;
-}
-
-.back-button {
+.back-btn {
   background-color: gray;
   color: white;
 }
 
-/* Input Styling */
-input[type="text"] {
-  width: 80%;
-  max-width: 300px;
-  padding: 10px;
-  font-size: 1rem;
-  margin-bottom: 10px;
-  border-radius: 5px;
-  border: none;
-}
-
-select {
-  padding: 10px;
-  font-size: 1rem;
-  border-radius: 5px;
+.error {
+  color: red;
+  font-weight: bold;
   margin-top: 10px;
 }
 
-/* Suggestion Box */
 .suggestion-box {
   list-style: none;
   padding: 0;
-  margin-top: 5px;
-  background-color: #fff;
-  max-width: 300px;
-  border: 1px solid #ccc;
+  margin: 0;
+  background-color: white;
+  color: black;
   border-radius: 5px;
   position: absolute;
+  width: 85%;
   z-index: 10;
 }
 
 .suggestion-box li {
-  padding: 8px;
+  padding: 10px;
   cursor: pointer;
+  border-bottom: 1px solid #ccc;
 }
 
-.suggestion-box li:hover {
-  background-color: #eee;
-}
-
-/* Weather Forecast & Storage Card */
 .violet-box {
-  background: rgba(138, 43, 226, 0.9);
-  border-radius: 10px;
+  background-color: violet;
+  color: black;
   padding: 15px;
-  margin-top: 1rem;
-  color: #fff;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .forecast {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: space-between;
 }
 
 .forecast-day {
-  background-color: rgba(255, 255, 255, 0.15);
-  border-radius: 10px;
+  background-color: #eee;
   padding: 10px;
-  flex: 1;
-  min-width: 150px;
-  text-align: center;
+  border-radius: 8px;
+  width: 30%;
 }
 
-/* Voice Mic Button */
-.input-with-mic {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative;
-}
-
-.mic-button {
-  background-color: #6a1b9a;
-  color: white;
-  padding: 10px;
-  border-radius: 50%;
-  font-size: 1.2rem;
-  border: none;
-  cursor: pointer;
-}
-
-.note {
-  margin-top: 10px;
-  color: yellow;
-}
-
-/* Language Toggle Switch */
-.toggle-container {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 1rem;
-}
-
-.toggle-label {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 28px;
-}
-
-.toggle-label input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.slider {
-  position: absolute;
-  cursor: pointer;
-  background-color: #ccc;
-  top: 0; left: 0;
-  right: 0; bottom: 0;
-  transition: 0.4s;
-  border-radius: 34px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #66bb6a;
-}
-
-input:checked + .slider:before {
-  transform: translateX(32px);
+.language-toggle {
+  margin: 10px 0;
 }
