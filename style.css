@@ -1,94 +1,107 @@
+/* Universal Styles */
 body {
-  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
   font-weight: bold;
+  color: #222;
+  background: #fff;
 }
 
-.page {
-  min-height: 100vh;
-  padding: 30px;
-  text-align: center;
-}
-
-/* Page backgrounds */
+/* Page Sections */
 #page1 {
-  background: linear-gradient(to bottom right, yellow, white, lightgreen);
+  height: 100vh;
+  background: linear-gradient(to bottom right, #ffeb3b, #fff176, #fdd835);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
 }
+
 #page2 {
-  background-color: #8B4513; /* brown */
-  color: white;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #8B4513, #A0522D, #CD853F);
+  padding: 2rem;
 }
+
 #page3 {
-  background: url('https://images.unsplash.com/photo-1598958231400-39a3c3f68f64?auto=format&fit=crop&w=1200&q=80') no-repeat center center;
-  background-size: cover;
-  color: white;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #006400, #228B22, #2E8B57);
+  padding: 2rem;
+  color: #fff;
 }
 
-/* Text elements */
-h1, h2, h3, p {
-  margin-bottom: 20px;
+/* Common Headings */
+h1, h2, h3 {
+  font-weight: bold;
+  margin-bottom: 1rem;
 }
 
-/* Input and button styles */
-input, select {
-  padding: 12px;
-  width: 80%;
-  font-size: 18px;
-  border-radius: 8px;
-  border: none;
-  margin-bottom: 10px;
+p {
+  margin: 0.5rem 0;
 }
 
+/* Buttons */
 button {
-  padding: 12px 20px;
-  font-size: 18px;
-  margin: 10px;
-  border-radius: 8px;
+  padding: 10px 20px;
   border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 5px;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
 }
 
 button:hover {
+  opacity: 0.9;
   transform: scale(1.05);
 }
 
-.start-btn {
+.start-button {
   background-color: skyblue;
   color: black;
 }
 
-.mic-btn {
-  position: absolute;
-  right: 10%;
-  top: 10px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
+.back-button {
+  background-color: gray;
+  color: white;
 }
 
-.input-group {
-  position: relative;
+/* Input Styling */
+input[type="text"] {
   width: 80%;
-  margin: 0 auto;
+  max-width: 300px;
+  padding: 10px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+select {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-top: 10px;
 }
 
 /* Suggestion Box */
 .suggestion-box {
   list-style: none;
-  background: white;
-  border: 1px solid #ccc;
-  text-align: left;
-  max-height: 150px;
-  overflow-y: auto;
-  margin: 0;
   padding: 0;
+  margin-top: 5px;
+  background-color: #fff;
+  max-width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 10;
 }
 
 .suggestion-box li {
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
 }
 
@@ -96,34 +109,99 @@ button:hover {
   background-color: #eee;
 }
 
-/* Dialog cards */
-.dialog {
-  background-color: #eee;
+/* Weather Forecast & Storage Card */
+.violet-box {
+  background: rgba(138, 43, 226, 0.9);
   border-radius: 10px;
-  padding: 20px;
-  margin: 20px auto;
-  width: 80%;
-  text-align: left;
-  font-size: 18px;
+  padding: 15px;
+  margin-top: 1rem;
+  color: #fff;
 }
 
-.violet {
-  background-color: #b19cd9;
-  color: white;
-}
-
-/* Weather forecast */
 .forecast {
   display: flex;
-  justify-content: space-around;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .forecast-day {
-  background-color: #ffffff33;
-  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
   padding: 10px;
-  margin: 10px;
-  width: 120px;
+  flex: 1;
+  min-width: 150px;
   text-align: center;
+}
+
+/* Voice Mic Button */
+.input-with-mic {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.mic-button {
+  background-color: #6a1b9a;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
+
+.note {
+  margin-top: 10px;
+  color: yellow;
+}
+
+/* Language Toggle Switch */
+.toggle-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 1rem;
+}
+
+.toggle-label {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 28px;
+}
+
+.toggle-label input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  top: 0; left: 0;
+  right: 0; bottom: 0;
+  transition: 0.4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #66bb6a;
+}
+
+input:checked + .slider:before {
+  transform: translateX(32px);
 }
