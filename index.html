@@ -9,52 +9,48 @@
 </head>
 <body>
 
-  <!-- Page 1 -->
+  <!-- Page 1: Welcome -->
   <div id="page1">
     <h1>🌾 Welcome to Agri Sathi 🌾</h1>
-    <p>This app helps farmers find ideal storage, market prices, weather, and voice search in English/తెలుగు.</p>
-    <button id="startBtn" onclick="goToPage2()">Start</button>
+    <p>This app helps farmers find ideal crop storage, nearby centers, market prices & weather.</p>
+    <button onclick="goToPage2()" id="startBtn">START</button>
     <p class="paddy-emojis">🌾🌾🌾🌾🌾</p>
   </div>
 
-  <!-- Page 2 -->
-  <div id="page2" style="display: none;">
-    <h2>Select Crop & District</h2>
-
-    <div class="language-toggle">
-      <label><input type="checkbox" id="languageToggle"> తెలుగు</label>
-    </div>
+  <!-- Page 2: Input -->
+  <div id="page2" style="display:none;">
+    <h2><b>Select Crop & District</b></h2>
 
     <div class="input-block">
       <input type="text" id="cropInput" placeholder="Enter crop name" oninput="showSuggestions()" />
+      <ul id="suggestions"></ul>
       <button onclick="startVoiceSearch()">🎙️</button>
-      <p id="voiceNote" style="display:none;">🎤 Listening... Speak crop name</p>
-      <ul id="suggestions" class="suggestion-box"></ul>
+      <p id="listeningNote" style="display:none;">🎤 Listening...</p>
     </div>
 
     <div class="input-block">
-      <select id="regionSelect">
-        <option value="">-- Select District --</option>
-      </select>
+      <select id="regionSelect"></select>
+    </div>
+
+    <div class="input-block toggle-block">
+      <label><input type="checkbox" id="langSwitch" onchange="toggleLanguage()"> తెలుగు</label>
     </div>
 
     <button onclick="goToPage3()">Get Details</button>
-    <button onclick="goToPage1()" class="back-btn">Back</button>
-    <div class="error" id="error"></div>
+    <button onclick="goToPage1()" class="backBtn">Back</button>
+    <div id="error" class="error"></div>
   </div>
 
-  <!-- Page 3 -->
-  <div id="page3" style="display: none;">
-    <h2 id="cropTitle">Crop Info</h2>
-
-    <div class="result violet-box" id="result"></div>
-    <div class="result violet-box" id="centerSection" style="display: none;">
+  <!-- Page 3: Output -->
+  <div id="page3" style="display:none;">
+    <h2 id="cropTitle"></h2>
+    <div class="dialog violet-box" id="result"></div>
+    <div class="dialog violet-box" id="centerSection" style="display:none;">
       <h3>Nearby Storage Centers</h3>
       <ul id="storageResults"></ul>
     </div>
-    <div class="result violet-box" id="weatherCard" style="display: none;"></div>
-
-    <button onclick="goToPage2()" class="back-btn">Search Another Crop</button>
+    <div class="dialog violet-box" id="weatherCard" style="display:none;"></div>
+    <button onclick="goToPage2()" class="backBtn">Search Another Crop</button>
   </div>
 
   <script src="script.js"></script>
