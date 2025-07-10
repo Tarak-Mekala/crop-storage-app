@@ -1,124 +1,155 @@
 body {
+  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  font-family: "Segoe UI", sans-serif;
+  padding: 0;
   font-weight: bold;
+  transition: background 1s;
+}
+
+#page1 {
+  background: linear-gradient(to bottom, yellow, white, green);
   text-align: center;
-}
-
-h1, h2, h3, p, button {
-  margin: 10px;
-}
-
-.gradient-bg {
-  background: linear-gradient(to bottom right, yellow, white, green);
-  padding: 50px 20px;
-  height: 100vh;
-}
-
-.jungle-bg {
-  background-color: #004d00;
-  background-image: linear-gradient(145deg, #004d00 30%, #267326 70%);
-  color: white;
-  padding: 20px;
-  min-height: 100vh;
+  padding: 60px 20px;
+  animation: fadeIn 1s ease-in;
 }
 
 .start-btn {
+  padding: 15px 40px;
+  font-size: 20px;
   background-color: skyblue;
-  font-size: 1.5rem;
-  padding: 15px 30px;
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s;
+}
+.start-btn:hover {
+  transform: scale(1.1);
+}
+.emoji-row {
+  margin-top: 20px;
+  font-size: 30px;
 }
 
-.big-btn {
-  font-size: 1.2rem;
-  background-color: gold;
-  color: black;
-  padding: 12px 30px;
-  border-radius: 10px;
-  font-weight: bold;
+#page2 {
+  background: linear-gradient(to bottom, #116530, #225e3b);
+  color: white;
+  padding: 40px 20px;
+  animation: slideIn 0.6s ease;
+}
+
+#page3 {
+  background-color: pink;
+  padding: 30px 20px;
+  animation: fadeIn 1s;
+}
+
+.input-row {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0;
+}
+input, select {
+  padding: 12px;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 8px;
   border: none;
-  margin: 20px 0;
+}
+
+.get-btn {
+  margin-top: 20px;
+  padding: 15px 30px;
+  background-color: gold;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
+}
+.get-btn:hover {
+  background-color: orange;
 }
 
 .back-btn {
-  padding: 10px 25px;
-  margin-top: 10px;
+  margin-top: 15px;
+  padding: 10px 20px;
+  font-size: 16px;
   background-color: gray;
   color: white;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: 6px;
   cursor: pointer;
 }
 
-input[type="text"], select {
-  width: 80%;
+.violet-box {
+  background-color: #a974d1;
+  color: white;
   padding: 15px;
-  font-size: 1.1rem;
-  border-radius: 10px;
-  border: none;
-  margin: 10px 0;
+  border-radius: 12px;
+  margin: 15px 0;
 }
 
 .suggestion-box {
+  background-color: white;
+  color: black;
   list-style: none;
   padding: 0;
   margin: 0;
-  background: white;
-  border: 1px solid gray;
-  position: absolute;
-  width: 80%;
-  left: 10%;
-  z-index: 10;
-  text-align: left;
   max-height: 150px;
   overflow-y: auto;
+  border: 1px solid #ccc;
 }
-
 .suggestion-box li {
-  padding: 10px;
+  padding: 8px;
   cursor: pointer;
-  font-weight: bold;
 }
-
 .suggestion-box li:hover {
   background-color: #f0f0f0;
 }
 
-.violet-box {
-  background-color: #d9b3ff;
-  color: #2e004f;
-  padding: 20px;
-  margin: 15px;
-  border-radius: 15px;
-  text-align: left;
+.dialog {
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.lang-toggle {
+  font-size: 16px;
   font-weight: bold;
 }
 
-.voice-btn {
-  font-size: 1.5rem;
-  background-color: violet;
-  border: none;
-  border-radius: 10px;
-  padding: 8px 12px;
-  cursor: pointer;
-  margin-left: 10px;
-}
-
-.note {
-  color: yellow;
-  margin: 10px 0;
+.listening-note {
   font-style: italic;
+  margin-bottom: 10px;
+  color: yellow;
 }
 
-.header {
+.forecast {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10%;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.forecast-day {
+  background: #fff;
+  color: #000;
+  padding: 10px;
+  border-radius: 10px;
+  width: 150px;
+  text-align: center;
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
