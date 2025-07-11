@@ -1,177 +1,174 @@
-// ====== DATA ======
-const crops = [
-  { name: "Wheat", telugu: "గోధుమలు", temp: "15-25°C", humidity: "60-70%", price: "₹22/kg" },
-  { name: "Rice", telugu: "బియ్యం / వరి", temp: "20-35°C", humidity: "70-80%", price: "₹28/kg" },
-  { name: "Maize", telugu: "మక్క జొన్న", temp: "18-27°C", humidity: "60-70%", price: "₹20/kg" },
-  { name: "Potato", telugu: "బంగాళదుంప", temp: "4°C", humidity: "90-95%", price: "₹18/kg" },
-  { name: "Onion", telugu: "ఉల్లిపాయ", temp: "0-2°C", humidity: "65-70%", price: "₹24/kg" },
-  { name: "Tomato", telugu: "టమోటా", temp: "12-16°C", humidity: "85-90%", price: "₹22/kg" },
-  { name: "Chillies", telugu: "మిరపకాయలు", temp: "14-18°C", humidity: "60-70%", price: "₹30/kg" },
-  { name: "Mango", telugu: "మామిడి", temp: "10-13°C", humidity: "85-90%", price: "₹35/kg" },
-  { name: "Banana", telugu: "అరటి", temp: "13-15°C", humidity: "90-95%", price: "₹26/kg" },
-  { name: "Sugarcane", telugu: "చెరుకు", temp: "20-30°C", humidity: "75-85%", price: "₹16/kg" },
-  { name: "Groundnut", telugu: "వేరుసెనగ", temp: "18-22°C", humidity: "60-70%", price: "₹25/kg" },
-  { name: "Cotton", telugu: "పత్తి", temp: "20-30°C", humidity: "50-60%", price: "₹45/kg" },
-  { name: "Pulses", telugu: "పప్పులు", temp: "15-20°C", humidity: "50-60%", price: "₹32/kg" },
-  { name: "Cabbage", telugu: "కోసు కూర", temp: "0°C", humidity: "90-95%", price: "₹15/kg" },
-  { name: "Cauliflower", telugu: "కాలీఫ్లవర్", temp: "0°C", humidity: "90-95%", price: "₹17/kg" },
+// Language toggle
+let lang = 'en';
+
+function toggleLanguage() {
+  lang = lang === 'en' ? 'te' : 'en';
+  document.getElementById('teluguToggle').checked = lang === 'te';
+  document.getElementById('teluguToggle2').checked = lang === 'te';
+  updateLabels();
+}
+
+function updateLabels() {
+  document.getElementById('labelCrop').textContent = lang==='te' ? 'పంట పేరు నమోదు చేయండి' : 'Enter Crop Name';
+  document.getElementById('labelRegion').textContent = lang==='te' ? 'మీ జిల్లా ఎంచుకోండి' : 'Select Your District';
+}
+
+// Navigation
+function goToPage1() { showPage('page1'); }
+function goToPage2() { clearInputs(); showPage('page2'); }
+function goToPage3() {
+  const crop = document.getElementById('cropInput').value.trim().toLowerCase();
+  const region = document.getElementById('regionSelect').value;
+  const error = document.getElementById('error');
+  const match = cropData.find(c => c.crop === crop);
+  if (!match) return error.textContent = lang==='te' ? 'పంట కనబడలేదు.' : 'Crop not found.';
+  error.textContent = '';
+  // Display crop
+  const name = lang==='te' ? translations[crop] : match.crop.toUpperCase();
+  document.getElementById('cropTitle').textContent = name;
+  document.getElementById('result').innerHTML = `
+    <p><strong>${lang==='te'?'Ideal ఉష్ణోగ్రత':'Ideal Temperature'}:</strong> ${match.temperature}</p>
+    <p><strong>${lang==='te'?'Ideal తేమ':'Ideal Humidity'}:</strong> ${match.humidity}</p>
+    <p><strong>${lang==='te'?'Max నిల్వ కాలం':'Max Storage Period'}:</strong> ${match.storage}</p>
+  `;
+  displayStorageCenters(region);
+  fetchWeather(region);
+  showPage('page3');
+}
+
+// UI helpers
+function showPage(id) {
+  ['page1','page2','page3'].forEach(p => document.getElementById(p).style.display = p === id ? 'block' : 'none');
+}
+
+// Clear
+function clearInputs() {
+  document.getElementById('cropInput').value = '';
+  document.getElementById('suggestions').innerHTML = '';
+  document.getElementById('regionSelect').value = '';
+  document.getElementById('error').textContent = '';
+  document.getElementById('weatherCard').style.display = 'none';
+}
+
+// Suggestions
+function showSuggestions() {
+  const input = document.getElementById('cropInput').value.toLowerCase();
+  const list = document.getElementById('suggestions');
+  list.innerHTML = '';
+  if (!input) return;
+  cropData
+    .filter(c => (lang==='te' ? translations[c.crop] : c.crop).toLowerCase().startsWith(input))
+    .forEach(c=> {
+      const name = lang==='te' ? translations[c.crop] : c.crop;
+      const li = document.createElement('li');
+      li.textContent = name;
+      li.onclick = () => { document.getElementById('cropInput').value = name; list.innerHTML = ''; };
+      list.appendChild(li);
+    });
+}
+
+// Voice search
+let recognition;
+function startVoiceSearch() {
+  if (!('webkitSpeechRecognition' in window)) return alert('Voice not supported');
+  recognition = new webkitSpeechRecognition();
+  recognition.lang = lang==='te' ? 'te-IN' : 'en-IN';
+  recognition.onstart = () => document.getElementById('cropInput').placeholder = lang==='te' ? 'శ్రవణం...' : 'Listening...';
+  recognition.onresult = e => document.getElementById('cropInput').value = e.results[0][0].transcript, showSuggestions();
+  recognition.start();
+}
+
+// Districts
+function populateDistricts() {
+  const sel = document.getElementById('regionSelect');
+  sel.innerHTML = '<option value="">--</option>';
+  storageData.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.district;
+    opt.textContent = lang==='te' && districtTrans[s.district] ? districtTrans[s.district] : s.district;
+    sel.appendChild(opt);
+  });
+}
+
+// Storage centers
+function displayStorageCenters(region) {
+  const el = document.getElementById('storageResults');
+  const sec = document.getElementById('centerSection');
+  const item = storageData.find(s => s.district === region);
+  sec.style.display = 'block';
+  if (item) {
+    el.innerHTML = item.centers.map(c => `<li>${lang==='te'?c:' '+c}</li>`).join('');
+  } else el.innerHTML = `<li>${lang==='te'?'కేంద్రం లేదు':'No centers found'}</li>`;
+}
+
+// Weather
+function fetchWeather(region) {
+  const wc = document.getElementById('weatherCard');
+  wc.style.display = 'block';
+  wc.innerHTML = `<p>${lang==='te'?'హवా సమాచారం లోడ్ అవుతోంది...':'Loading weather...'}</p>`;
+  fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${region}&appid=9d615f5f1e48d9502a77a12229e0e639&units=metric`)
+    .then(r=>r.json()).then(data=>{
+      const days = data.list.filter(i=>i.dt_txt.includes("12:00:00")).slice(0,3);
+      wc.innerHTML = `<h3>${lang==='te'?'3-రోజుల వాతావరణ సూచన':'3‑Day Weather Forecast'}</h3>
+        <div class="forecast">${days.map(d=>`
+          <div class="forecast-day">
+            <p><strong>${new Date(d.dt_txt).toLocaleDateString(lang==='te'?'te-IN':'en-IN',{weekday:'short',day:'numeric'})}</strong></p>
+            <p>🌡️ ${d.main.temp}°C</p>
+            <p>💧 ${d.main.humidity}%</p>
+            <p>${d.weather[0].main}</p>
+          </div>`).join('')}</div>`;
+    }).catch(()=>wc.innerHTML = `<p>${lang==='te'?'వాతావరణము అందుబాటులో లేదు':''}Weather unavailable</p>`);
+}
+
+// Data & translations
+const cropData = [
+  { crop:"wheat",temperature:"10–15°C",humidity:"65–70%",storage:"6–12 months" },
+  { crop:"rice",temperature:"10–15°C",humidity:"65–70%",storage:"6–12 months" },
+  { crop:"maize",temperature:"0–4°C",humidity:"80–85%",storage:"6–12 months" },
+  { crop:"potato",temperature:"4–7°C",humidity:"90–95%",storage:"90 days" },
+  { crop:"onion",temperature:"0–2°C",humidity:"65–70%",storage:"150 days" },
+  { crop:"tomato",temperature:"12–15°C",humidity:"85–90%",storage:"14 days" },
+  { crop:"chillies",temperature:"8–10°C",humidity:"70–75%",storage:"20 days" },
+  { crop:"mango",temperature:"10–13°C",humidity:"85–90%",storage:"28 days" },
+  { crop:"banana",temperature:"13–14°C",humidity:"85–95%",storage:"18–22 days" },
+  { crop:"sugarcane",temperature:"12–14°C",humidity:"70–75%",storage:"3–5 months" },
+  { crop:"groundnut",temperature:"6–10°C",humidity:"70–80%",storage:"3–6 months" },
+  { crop:"cotton",temperature:"10–15°C",humidity:"65–75%",storage:"6–8 months" },
+  { crop:"pulses",temperature:"5–10°C",humidity:"65–75%",storage:"6–12 months" },
+  { crop:"cabbage",temperature:"0–1°C",humidity:"90–95%",storage:"2–3 months" },
+  { crop:"cauliflower",temperature:"0–1°C",humidity:"90–95%",storage:"2–3 months" }
 ];
 
-const districts = {
-  Hyderabad: ["Agro Storage Hyderabad", "Grain Safe Depot Hyderabad"],
-  Warangal: ["Warangal Cold Storage", "Safe Crop Warangal"],
-  Karimnagar: ["Karimnagar Agro Depot", "Farm Fresh Storage"],
-  Nizamabad: ["Nizamabad Grain Depot", "FreshCrop Storage Center"],
-  Khammam: ["Khammam AgriStore", "CropSecure Warehouse"],
-  Nalgonda: ["Nalgonda Storage Hub", "Grain Guard Nalgonda"],
-  Mahbubnagar: ["Mahbub Agro Center", "Harvest Depot MBnagar"],
-  Medak: ["Medak Crop Care", "AgriSafe Storage Medak"],
-  Adilabad: ["Adilabad Farm Depot", "SecureGrain Storage"],
-  Rangareddy: ["Rangareddy Storage Co", "GreenGold Agro Center"],
+// Telugu translations
+const translations = {
+  wheat:"గోధుమలు",rice:"బియ్యం",maize:"మక్క జొన్న",potato:"బంగాళదుంప",
+  onion:"ఉల్లిపాయ", tomato:"టమోటా", chillies:"మిరపకాయలు", mango:"మామిడి",
+  banana:"అరటి", sugarcane:"చెరుకు", groundnut:"వేరుసెనగ", cotton:"పత్తి",
+  pulses:"పప్పులు", cabbage:"కోసు కూర", cauliflower:"కాలీఫ్లవర్"
 };
 
-// ====== UI ELEMENTS ======
-const cropInput = document.getElementById("cropInput");
-const districtSelect = document.getElementById("districtSelect");
-const cropConditionsBox = document.getElementById("cropConditions");
-const storageCentersBox = document.getElementById("storageCenters");
-const weatherForecastBox = document.getElementById("weatherForecast");
-const suggestionBox = document.getElementById("suggestions");
-const teluguToggle = document.getElementById("languageToggle");
-const micButton = document.getElementById("micButton");
-const listeningNote = document.getElementById("listeningNote");
+const districtTrans = {
+  Adilabad:"ఆదిలాబాద్",Karimnagar:"కరీంనగర్",Nizamabad:"నిజామాబాద్",
+  Warangal:"వారంగల్",Mahbubnagar:"మహబూబ్నగర్",Khammam:"ఖమ్మం",
+  Nalgonda:"నాల్గొండ",Medak:"మెదక్",Rangareddy:"రంగారెడ్డి",
+  Hyderabad:"హైదరాబాదు"
+};
 
-let isTelugu = false;
+const storageData = [
+  {district:"Adilabad",centers:["GMR Warehouse","Ladda Agro Godowns","Paharia Warehouse","Y S R Godown"]},
+  {district:"Karimnagar",centers:["Srinivasa Cold Storage","Godavari Agro Warehousing","SVS Cold Chain","Sri Gaddam Veeresham Rural Godown"]},
+  {district:"Nizamabad",centers:["Nizam Agro Storage","Green Leaf Cold Storage","SLNS Cold Storage","Hi‑Tech Cold Storage"]},
+  {district:"Warangal",centers:["Bhavani Cold Storage","Sree Lakshmi Warehouse","TSWC Facility","Moksha cold storage","Saptagiri cold storage","Sri karthik cold storage","Venkatagiri cold storage","Vennela storage unit"]},
+  {district:"Mahbubnagar",centers:["Sri Sai Warehouse","Mahindra Cold Chain","Nandini Cold storages","Sunyang Cold Storage","Green House Cold storages"]},
+  {district:"Khammam",centers:["Khammam Agro Cold Storage","Red Chilies Storage","Gayathri cold storage","Swarnabharati cold storage","Krishna sai storage unit"]},
+  {district:"Nalgonda",centers:["Pavan Warehouse","Sunrise Cold Storage","TSWC Nalgonda","Sri Satyadeva Cold Storage"]},
+  {district:"Medak",centers:["Medak Agro Storage","Greenfield Warehousing","Afsari Begum Ripening Chamber","S.S. Agro Fresh Cold Storage"]},
+  {district:"Rangareddy",centers:["Hyderabad Cold Storage","Sri Venkateshwara Agro","Aditya Enterprises","Venkateshwara cold storage"]},
+  {district:"Hyderabad",centers:["City Agro Godowns","Urban Cold Chain","Coldrush logistics","Akshaya cold storage"]}
+];
 
-// ====== LANGUAGE TOGGLE ======
-teluguToggle.addEventListener("click", () => {
-  isTelugu = !isTelugu;
-  teluguToggle.innerText = isTelugu ? "Switch to English" : "తెలుగు";
-  updateSuggestions();
-  populateDistricts(); // refresh district names if needed
+// Init
+document.addEventListener('DOMContentLoaded',()=>{
+  updateLabels();
+  populateDistricts();
 });
-
-// ====== DISTRICTS LOADING ======
-function populateDistricts() {
-  districtSelect.innerHTML = `<option value="" disabled selected>${isTelugu ? "జిల్లా ఎంచుకోండి" : "Select District"}</option>`;
-  Object.keys(districts).forEach(district => {
-    const opt = document.createElement("option");
-    opt.value = district;
-    opt.text = isTelugu ? toTeluguPhonetic(district) : district;
-    districtSelect.appendChild(opt);
-  });
-}
-populateDistricts();
-
-// ====== AUTOCOMPLETE ======
-cropInput.addEventListener("input", updateSuggestions);
-function updateSuggestions() {
-  const value = cropInput.value.toLowerCase();
-  suggestionBox.innerHTML = "";
-  const filtered = crops.filter(crop => {
-    const compareName = isTelugu ? crop.telugu : crop.name;
-    return compareName.toLowerCase().startsWith(value);
-  });
-  filtered.forEach(crop => {
-    const div = document.createElement("div");
-    div.className = "suggestion";
-    div.innerText = isTelugu ? crop.telugu : crop.name;
-    div.onclick = () => {
-      cropInput.value = div.innerText;
-      suggestionBox.innerHTML = "";
-    };
-    suggestionBox.appendChild(div);
-  });
-}
-
-// ====== GET DETAILS ======
-function getDetails() {
-  const selectedCropName = cropInput.value.trim();
-  const crop = crops.find(c =>
-    c.name.toLowerCase() === selectedCropName.toLowerCase() ||
-    c.telugu === selectedCropName
-  );
-
-  if (!crop) {
-    alert(isTelugu ? "పంట కనిపించలేదు" : "Crop not found");
-    return;
-  }
-
-  const district = districtSelect.value;
-  if (!district) {
-    alert(isTelugu ? "జిల్లాను ఎంచుకోండి" : "Please select a district");
-    return;
-  }
-
-  // Crop Conditions
-  cropConditionsBox.innerHTML = `
-    <h3>${isTelugu ? "పంట నిల్వ పరిస్థితులు" : "Crop Storage Conditions"}</h3>
-    <p><b>${isTelugu ? "తెంపర" : "Ideal Temperature"}:</b> ${crop.temp}</p>
-    <p><b>${isTelugu ? "ఆర్ద్రత" : "Humidity"}:</b> ${crop.humidity}</p>
-    <p><b>${isTelugu ? "ధర" : "Approx Price"}:</b> ${crop.price}</p>
-  `;
-
-  // Storage Centers
-  const centers = districts[district];
-  storageCentersBox.innerHTML = `
-    <h3>${isTelugu ? "నిల్వ కేంద్రాలు" : "Storage Centers"}</h3>
-    <ul>${centers.map(name => `<li>${isTelugu ? toTeluguPhonetic(name) : name}</li>`).join("")}</ul>
-  `;
-
-  // Weather
-  getWeather(district);
-}
-
-// ====== VOICE SEARCH ======
-micButton.addEventListener("click", () => {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = isTelugu ? "te-IN" : "en-US";
-  recognition.start();
-  listeningNote.style.display = "block";
-  recognition.onresult = event => {
-    const transcript = event.results[0][0].transcript;
-    cropInput.value = transcript;
-    updateSuggestions();
-    listeningNote.style.display = "none";
-  };
-  recognition.onerror = () => {
-    alert(isTelugu ? "వాయిస్ గుర్తింపు విఫలమైంది" : "Voice recognition failed");
-    listeningNote.style.display = "none";
-  };
-});
-
-// ====== WEATHER FETCH ======
-async function getWeather(city) {
-  const apiKey = "9d615f5f1e48d9502a77a12229e0e639";
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
-  try {
-    const res = await fetch(url);
-    const data = await res.json();
-    const daily = data.list.filter(item => item.dt_txt.includes("12:00:00"));
-    weatherForecastBox.innerHTML = `
-      <h3>${isTelugu ? "వాతావరణ సూచన" : "Weather Forecast"}</h3>
-      <div class="forecast-cards">
-        ${daily.slice(0, 3).map(day => `
-          <div class="weather-card">
-            <p>${new Date(day.dt_txt).toDateString()}</p>
-            <p><b>${day.main.temp}°C</b></p>
-            <p>${day.weather[0].description}</p>
-          </div>
-        `).join("")}
-      </div>
-    `;
-  } catch (err) {
-    weatherForecastBox.innerHTML = `<p>${isTelugu ? "వాతావరణ సమాచారం అందుబాటులో లేదు" : "Weather info unavailable"}</p>`;
-  }
-}
-
-// ====== HELPER: Transliteration (Phonetic only for company names) ======
-function toTeluguPhonetic(text) {
-  const map = {
-    a: "అ", b: "బ", c: "క", d: "డ", e: "ఎ", f: "ఫ", g: "గ", h: "హ",
-    i: "ఇ", j: "జ", k: "క", l: "ల", m: "మ", n: "న", o: "ఒ", p: "ప",
-    q: "క్వ", r: "ర", s: "స", t: "ట", u: "ఉ", v: "వ", w: "వ", x: "క్ష",
-    y: "య", z: "జ"
-  };
-  return text.split("").map(ch => map[ch.toLowerCase()] || ch).join("");
-}
