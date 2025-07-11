@@ -1,142 +1,129 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  font-weight: bold;
 }
 
-.page {
-  padding: 20px;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
-
-#page1 {
-  background: linear-gradient(to bottom, yellow, white, green);
+/* Page 1 */
+.page1 {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #fffbcf, #e8f5e9);
+  text-align: center;
+}
+.page1 h1, .page1 p {
+  margin: 10px;
+}
+#startBtn {
+  padding: 20px 40px;
+  font-size: 2rem;
+  font-weight: bold;
+  background: #90caf9;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+#startBtn:hover {
+  background: #42a5f5;
+}
+
+/* Common pages */
+.page {
+  min-height: 100vh;
+  padding: 20px;
+  color: #212121;
+  font-weight: bold;
+}
+.lang-toggle {
+  text-align: right;
+  margin-bottom: 10px;
+}
+input[type="checkbox"] { transform: scale(1.2); }
+
+/* Page 2: Tropical Jungle vibes */
+.page2 {
+  background: linear-gradient(to bottom right, #2e7d32, #a5d6a7);
+}
+.page2 h2 {
+  margin: 20px 0 10px;
+}
+.input-group {
+  display: flex;
+  width: 100%;
+}
+#cropInput {
+  flex: 1;
+  padding: 15px;
+  font-size: 1.2rem;
+}
+#voiceBtn {
+  padding: 0 20px;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.suggestions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 150px;
+  overflow-y: auto;
+  background: #fff;
+}
+.suggestions li {
+  padding: 10px;
+  cursor: pointer;
+}
+.suggestions li:hover {
+  background: #c8e6c9;
+}
+
+/* Page 3 */
+.page3 {
+  background: linear-gradient(to bottom, #ffe082, #ffab00);
+}
+.page3 h2, .page3 .result {
+  margin: 15px 0;
+}
+
+/* Result/wrapper styles */
+.error {
+  margin-top: 15px;
+  color: #b71c1c;
+}
+.result {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+}
+.weather-card {
+  margin-top: 15px;
+}
+.forecast {
+  display: flex;
+  justify-content: space-around;
+}
+.forecast-day {
+  background: #fff9c4;
+  padding: 10px;
+  border-radius: 8px;
+  width: 30%;
   text-align: center;
 }
 
-#page2 {
-  background-color: #3d5c2c; /* Jungle green */
-  color: white;
-}
-
-#page3 {
-  background-color: pink;
-}
-
-.start-button {
-  background-color: skyblue;
-  color: black;
-  font-size: 24px;
-  padding: 12px 30px;
+/* Buttons */
+#getDetailsBtn, .page3 button {
+  padding: 15px 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: #4caf50;
   border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  margin-top: 20px;
-}
-
-.get-details-button {
-  background-color: violet;
-  font-size: 20px;
-  padding: 12px 20px;
   border-radius: 8px;
-  margin-top: 20px;
-}
-
-.back-button {
-  margin-top: 20px;
-  background-color: #555;
-  color: white;
-  padding: 10px;
-  border-radius: 6px;
   cursor: pointer;
-}
-
-.input-section {
-  position: relative;
-  margin-bottom: 20px;
-}
-
-#cropInput {
-  width: 100%;
-  padding: 12px;
-  font-size: 18px;
-  border-radius: 8px;
-  border: none;
-}
-
-.suggestion-box {
-  list-style: none;
-  padding: 0;
-  margin: 5px 0 0;
-  background: white;
-  color: black;
-  border-radius: 6px;
-  max-height: 150px;
-  overflow-y: auto;
-  position: absolute;
-  width: 100%;
-  z-index: 10;
-}
-
-.suggestion-box li {
-  padding: 10px;
-  cursor: pointer;
-}
-
-.suggestion-box li:hover {
-  background-color: #eee;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.error {
-  color: red;
   margin-top: 10px;
 }
-
-.dialog {
-  padding: 15px;
-  margin: 15px 0;
-  border-radius: 10px;
-}
-
-.violet-box {
-  background-color: #d3a4ff;
-  color: black;
-}
-
-.forecast {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.forecast-day {
-  background-color: white;
-  color: black;
-  border-radius: 8px;
-  padding: 10px;
-  min-width: 120px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-.listening-note {
-  position: fixed;
-  bottom: 10px;
-  left: 10px;
-  background-color: yellow;
-  color: black;
-  padding: 10px;
-  border-radius: 8px;
-  font-weight: bold;
-  z-index: 1000;
+#getDetailsBtn:hover, .page3 button:hover {
+  background: #388e3c;
 }
