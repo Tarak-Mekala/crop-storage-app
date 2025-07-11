@@ -1,155 +1,114 @@
 body {
-  font-family: 'Segoe UI', sans-serif;
   margin: 0;
-  padding: 0;
+  font-family: "Segoe UI", sans-serif;
   font-weight: bold;
-  transition: background 1s;
 }
 
 #page1 {
   background: linear-gradient(to bottom, yellow, white, green);
   text-align: center;
   padding: 60px 20px;
-  animation: fadeIn 1s ease-in;
+  height: 100vh;
 }
 
 .start-btn {
-  padding: 15px 40px;
-  font-size: 20px;
+  font-size: 22px;
+  padding: 15px 30px;
   background-color: skyblue;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: transform 0.2s;
 }
-.start-btn:hover {
-  transform: scale(1.1);
-}
-.emoji-row {
-  margin-top: 20px;
+
+.emoji-bar {
   font-size: 30px;
+  margin-top: 20px;
 }
 
 #page2 {
-  background: linear-gradient(to bottom, #116530, #225e3b);
-  color: white;
-  padding: 40px 20px;
-  animation: slideIn 0.6s ease;
+  background: linear-gradient(to bottom right, #005f3f, #a5ff99);
+  padding: 20px;
+  height: 100vh;
 }
 
 #page3 {
-  background-color: pink;
-  padding: 30px 20px;
-  animation: fadeIn 1s;
+  background: linear-gradient(to bottom right, #2e8b57, #5cb85c);
+  padding: 20px;
+  height: 100vh;
 }
 
-.input-row {
-  display: flex;
-  gap: 10px;
+h2, h3, p {
   margin: 10px 0;
 }
-input, select {
-  padding: 12px;
-  font-size: 16px;
+
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   width: 100%;
-  border-radius: 8px;
-  border: none;
 }
 
-.get-btn {
-  margin-top: 20px;
-  padding: 15px 30px;
-  background-color: gold;
-  border: none;
+input, select {
   font-size: 18px;
-  font-weight: bold;
-  border-radius: 8px;
-  cursor: pointer;
-}
-.get-btn:hover {
-  background-color: orange;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #888;
 }
 
-.back-btn {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: gray;
+button {
+  font-size: 18px;
+  padding: 12px;
+  margin-top: 10px;
+  background-color: #006400;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
 }
 
-.violet-box {
-  background-color: #a974d1;
-  color: white;
-  padding: 15px;
-  border-radius: 12px;
-  margin: 15px 0;
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.03);
+  transition: 0.3s ease;
 }
 
-.suggestion-box {
-  background-color: white;
-  color: black;
+#suggestions {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  background: white;
+  border: 1px solid #ccc;
   max-height: 150px;
   overflow-y: auto;
-  border: 1px solid #ccc;
 }
-.suggestion-box li {
+
+#suggestions li {
   padding: 8px;
   cursor: pointer;
 }
-.suggestion-box li:hover {
-  background-color: #f0f0f0;
+#suggestions li:hover {
+  background-color: #eee;
 }
 
 .dialog {
   padding: 15px;
-  margin: 10px 0;
-}
-
-.top-bar {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 10px;
-}
-
-.lang-toggle {
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.listening-note {
-  font-style: italic;
-  margin-bottom: 10px;
-  color: yellow;
-}
-
-.forecast {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-.forecast-day {
-  background: #fff;
-  color: #000;
-  padding: 10px;
+  margin: 15px 0;
   border-radius: 10px;
-  width: 150px;
-  text-align: center;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.98); }
-  to { opacity: 1; transform: scale(1); }
+.violet-box {
+  background: #b39ddb;
+  color: #2e003e;
 }
 
-@keyframes slideIn {
-  from { transform: translateX(-20px); opacity: 0; }
-  to { transform: translateX(0); opacity: 1; }
+.error {
+  color: red;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
