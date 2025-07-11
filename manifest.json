@@ -1,16 +1,20 @@
 {
   "name": "Agri Sathi",
   "short_name": "AgriSathi",
-  "start_url": ".",
+  "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#4fc3f7",
-  "description": "Find ideal storage for crops and nearby centers",
+  "theme_color": "#4CAF50",
   "icons": [
     {
-      "src": "images/agri-sathi-logo.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo.png",
+      "type": "image/png",
+      "sizes": "512x512"
     }
   ]
 }
