@@ -1,147 +1,55 @@
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Agri Sathi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <!-- Telugu Toggle -->
+  <button id="languageToggle">తెలుగు</button>
 
-#page1, #page2, #page3 {
-  display: none;
-  padding: 20px;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
+  <!-- Page 1 -->
+  <div id="page1">
+    <h1>🌾 WELCOME TO AGRI SATHI</h1>
+    <p>This app helps you find ideal storage & market info for your crop</p>
+    <button onclick="goToPage2()" id="startBtn">START</button>
+  </div>
 
-/* Page 1 Gradient: Yellow-White-Green */
-#page1 {
-  background: linear-gradient(to bottom, #ffd700, #ffffff, #00ff00);
-  text-align: center;
-}
+  <!-- Page 2 -->
+  <div id="page2">
+    <h2>ENTER YOUR CROP NAME</h2>
+    <div class="input-box">
+      <input type="text" id="cropInput" placeholder="Type crop name..." oninput="showSuggestions()" />
+      <button onclick="startVoiceSearch()" id="micBtn">🎤</button>
+      <p id="listeningNote" style="display:none;">🎙️ Listening...</p>
+      <ul id="suggestions"></ul>
+    </div>
 
-/* Page 2 Gradient: Black-Blue */
-#page2 {
-  background: linear-gradient(to bottom right, #000000, #002244);
-  color: white;
-}
+    <h2>SELECT YOUR DISTRICT</h2>
+    <select id="regionSelect">
+      <option value="">-- SELECT DISTRICT --</option>
+    </select>
 
-/* Page 3: Yellow box with white background */
-#page3 {
-  background: linear-gradient(to bottom, #fffacd, #ffffff);
-}
+    <button onclick="goToPage3()" id="getDetailsBtn">GET DETAILS</button>
+    <button onclick="goToPage1()" id="backBtn">BACK</button>
+    <div id="error" class="error"></div>
+  </div>
 
-h1, h2 {
-  font-size: 1.8em;
-  margin-bottom: 10px;
-}
+  <!-- Page 3 -->
+  <div id="page3">
+    <h2 id="cropTitle"></h2>
+    <div class="dialog-box" id="result"></div>
+    <div class="dialog-box" id="centerSection" style="display:none;">
+      <h3>NEARBY STORAGE CENTERS</h3>
+      <ul id="storageResults"></ul>
+    </div>
+    <div class="dialog-box" id="weatherCard" style="display:none;"></div>
+    <button onclick="goToPage2()">SEARCH ANOTHER</button>
+  </div>
 
-#startBtn {
-  background-color: #002244;
-  color: white;
-  padding: 15px 30px;
-  font-size: 1.5em;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-#getDetailsBtn {
-  background-color: #00ccff;
-  color: white;
-  font-size: 1.5em;
-  padding: 15px 30px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 8px;
-}
-
-#backBtn {
-  margin-top: 10px;
-  background-color: gray;
-  color: white;
-  padding: 8px 20px;
-  border: none;
-  border-radius: 5px;
-}
-
-.input-box {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-#cropInput {
-  padding: 12px;
-  font-size: 1em;
-  border-radius: 6px;
-  border: none;
-  width: 100%;
-}
-
-#micBtn {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  background: transparent;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
-}
-
-#suggestions {
-  list-style: none;
-  padding: 0;
-  background-color: white;
-  max-height: 150px;
-  overflow-y: auto;
-  border: 1px solid #ccc;
-  border-top: none;
-  position: absolute;
-  width: 100%;
-  z-index: 2;
-}
-
-#suggestions li {
-  padding: 8px;
-  cursor: pointer;
-}
-
-#suggestions li:hover {
-  background-color: #eee;
-}
-
-.dialog-box {
-  background-color: violet;
-  color: white;
-  padding: 15px;
-  margin-top: 15px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 8px #888;
-}
-
-#languageToggle {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 6px 12px;
-  background-color: violet;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  font-weight: bold;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-button {
-  transition: transform 0.2s ease-in-out;
-}
-
-button:active {
-  transform: scale(0.97);
-}
-
-#error {
-  color: red;
-  margin-top: 10px;
-}
+  <script src="script.js"></script>
+</body>
+</html>
