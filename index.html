@@ -9,52 +9,65 @@
 </head>
 <body>
 
+  <!-- Language Toggle -->
+  <div id="languageToggle">
+    <label><input type="checkbox" id="languageSwitch" onchange="toggleLanguage()" /> తెలుగు</label>
+  </div>
+
   <!-- Page 1: Welcome -->
-  <div id="page1" class="page">
-    <h1>🌾 Welcome to Agri Sathi</h1>
-    <p>This app helps farmers find ideal crop storage and market info.</p>
-    <button class="start-btn" onclick="goToPage2()">Start</button>
-    <div class="paddy-emojis">🌾🌾🌾🌾🌾</div>
+  <div id="page1">
+    <h1>🌾 WELCOME TO AGRI SATHI</h1>
+    <p>FIND IDEAL STORAGE CONDITIONS AND NEARBY STORAGE CENTERS</p>
+    <button id="startButton" onclick="goToPage2()">START</button>
   </div>
 
   <!-- Page 2: Input -->
-  <div id="page2" class="page" style="display:none;">
-    <div class="top-bar">
-      <button onclick="goToPage1()" class="back-btn">← Back</button>
-      <button onclick="toggleLanguage()" class="lang-toggle" id="langToggle">🌐 తెలుగు</button>
-    </div>
-
-    <h2>Enter Crop Name</h2>
-    <div class="input-group">
-      <input type="text" id="cropInput" placeholder="Type crop name..." oninput="showSuggestions()" />
-      <button class="mic-btn" onclick="startVoiceRecognition()">🎤</button>
+  <div id="page2" style="display: none;">
+    <h2>ENTER CROP NAME</h2>
+    <div class="input-container">
+      <input type="text" id="cropInput" placeholder="Type crop name..." oninput="showSuggestions()" autocomplete="off" />
+      <button id="voiceBtn" onclick="startVoiceInput()">🎤</button>
+      <div id="listeningNote" style="display: none;">🎙️ Listening...</div>
       <ul id="suggestions" class="suggestion-box"></ul>
-      <p id="listeningNote" class="note" style="display:none;">🎙️ Listening...</p>
     </div>
 
-    <h2>Select District</h2>
+    <h2>SELECT DISTRICT</h2>
     <select id="regionSelect">
-      <option value="">-- Select District --</option>
+      <option value="">-- SELECT DISTRICT --</option>
     </select>
 
-    <button class="details-btn" onclick="goToPage3()">Get Details</button>
+    <div class="button-group">
+      <button id="detailsBtn" onclick="goToPage3()">GET DETAILS</button>
+      <button class="back-btn" onclick="goToPage1()">BACK</button>
+    </div>
+
     <div class="error" id="error"></div>
   </div>
 
   <!-- Page 3: Output -->
-  <div id="page3" class="page" style="display:none;">
-    <h2 id="cropTitle">Crop Info</h2>
+  <div id="page3" style="display: none;">
+    <h2 id="cropTitle">CROP NAME</h2>
+    <div class="result" id="result"></div>
 
-    <div class="violet-box" id="result"></div>
-    <div class="violet-box" id="centerSection" style="display:none;">
-      <h3>Nearby Storage Centers</h3>
+    <div class="result" id="centerSection" style="display: none;">
+      <h3>NEARBY STORAGE CENTERS</h3>
       <ul id="storageResults"></ul>
     </div>
-    <div class="violet-box" id="weatherCard" style="display:none;"></div>
 
-    <button class="back-btn" onclick="goToPage2()">Search Another Crop</button>
+    <div class="result" id="weatherCard" style="display: none;"></div>
+
+    <button class="back-btn" onclick="goToPage2()">SEARCH ANOTHER CROP</button>
   </div>
 
   <script src="script.js"></script>
+  <script>
+    window.onload = function () {
+      showOnlyPage("page1");
+    };
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+  </script>
 </body>
 </html>
