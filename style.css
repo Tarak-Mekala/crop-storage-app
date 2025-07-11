@@ -1,222 +1,142 @@
-/* GLOBAL STYLES */
 body {
   margin: 0;
-  padding: 0;
   font-family: 'Segoe UI', sans-serif;
-  box-sizing: border-box;
-  overflow-x: hidden;
+  font-weight: bold;
 }
 
-button {
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-input, select {
-  font-size: 1rem;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-/* PAGE 1: GRADIENT BACKGROUND + START */
-#page1 {
-  text-align: center;
-  padding: 40px 20px;
+.page {
+  padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(to bottom, #fff176, #ffffff, #81c784);
-  animation: fadeIn 1.2s ease-in;
+  box-sizing: border-box;
 }
 
-#page1 h1 {
-  font-size: 2.5rem;
-  font-weight: bold;
-  margin-top: 20px;
-  animation: slideDown 1s ease;
+#page1 {
+  background: linear-gradient(to bottom, yellow, white, green);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-#page1 p {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin: 20px auto 30px;
-  max-width: 90%;
-}
-
-.start-btn {
-  background-color: #4fc3f7;
+#page2 {
+  background-color: #3d5c2c; /* Jungle green */
   color: white;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 18px 38px;
+}
+
+#page3 {
+  background-color: pink;
+}
+
+.start-button {
+  background-color: skyblue;
+  color: black;
+  font-size: 24px;
+  padding: 12px 30px;
   border: none;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.start-btn:hover {
-  background-color: #039be5;
-  transform: scale(1.05);
-}
-
-.emoji-row {
-  margin: 20px 0;
-  font-size: 1.6rem;
-}
-
-.logo-container {
+  cursor: pointer;
   margin-top: 20px;
 }
 
-.responsive-logo {
-  width: 100%;
-  max-width: 500px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
+.get-details-button {
+  background-color: violet;
+  font-size: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
 }
 
-/* PAGE 2: TROPICAL JUNGLE THEME */
-#page2 {
-  background: linear-gradient(to bottom right, #006400, #228B22, #32CD32);
-  min-height: 100vh;
-  padding: 40px 20px;
-  color: #fff;
+.back-button {
+  margin-top: 20px;
+  background-color: #555;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
-#page2 h2 {
-  font-size: 2rem;
-  font-weight: bold;
+.input-section {
+  position: relative;
   margin-bottom: 20px;
-  text-align: center;
 }
 
-#page2 label, #page2 select, #page2 input {
-  font-weight: bold;
-  display: block;
-  width: 90%;
-  margin: 20px auto;
-  font-size: 1.2rem;
-}
-
-#page2 button {
-  background-color: #fbc02d;
-  font-weight: bold;
-  font-size: 1.3rem;
+#cropInput {
+  width: 100%;
+  padding: 12px;
+  font-size: 18px;
+  border-radius: 8px;
   border: none;
-  border-radius: 10px;
-  padding: 14px 32px;
-  color: #000;
-  margin-top: 20px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
 
-#suggestions {
+.suggestion-box {
   list-style: none;
   padding: 0;
-  margin: 10px auto 0;
-  background: #fff;
+  margin: 5px 0 0;
+  background: white;
+  color: black;
   border-radius: 6px;
-  max-width: 90%;
-  font-weight: bold;
-  color: #333;
+  max-height: 150px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
   z-index: 10;
-  position: relative;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-#suggestions li {
-  padding: 8px 14px;
-  border-bottom: 1px solid #ccc;
+.suggestion-box li {
+  padding: 10px;
   cursor: pointer;
-  background: #fafafa;
-  transition: background 0.2s;
 }
 
-#suggestions li:hover {
-  background: #e0f7fa;
+.suggestion-box li:hover {
+  background-color: #eee;
 }
 
-/* PAGE 3: BABY PINK BG + TROPICAL VIOLET BOXES */
-#page3 {
-  background-color: #ffe4ec;
-  min-height: 100vh;
-  padding: 30px 20px;
-  color: #000;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#page3 h2 {
-  font-size: 2rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
+.error {
+  color: red;
+  margin-top: 10px;
 }
 
-.dialog-box {
-  background-color: #d1c4e9;
+.dialog {
+  padding: 15px;
+  margin: 15px 0;
   border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
 }
 
-.dialog-box h3 {
-  font-size: 1.3rem;
-  font-weight: bold;
-  margin-bottom: 10px;
+.violet-box {
+  background-color: #d3a4ff;
+  color: black;
 }
 
-/* WEATHER FORECAST CARDS */
 .forecast {
   display: flex;
+  gap: 10px;
   flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 15px;
 }
 
 .forecast-day {
-  background-color: #b39ddb;
-  border-radius: 10px;
-  padding: 15px;
+  background-color: white;
+  color: black;
+  border-radius: 8px;
+  padding: 10px;
   min-width: 120px;
-  text-align: center;
-  font-weight: bold;
-  color: #000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
-/* VOICE SEARCH NOTE */
-#voiceNote {
-  font-size: 1rem;
-  color: #4caf50;
-  font-weight: bold;
-  text-align: center;
-  margin-top: 10px;
-  display: none;
-}
-
-/* LANGUAGE TOGGLE BUTTON */
-#langToggle {
+.listening-note {
   position: fixed;
-  top: 10px;
-  right: 10px;
-  padding: 8px 14px;
-  border: none;
-  background-color: #7e57c2;
-  color: white;
+  bottom: 10px;
+  left: 10px;
+  background-color: yellow;
+  color: black;
+  padding: 10px;
   border-radius: 8px;
   font-weight: bold;
-  z-index: 999;
-}
-
-/* ANIMATIONS */
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
-}
-
-@keyframes slideDown {
-  from {transform: translateY(-20px); opacity: 0;}
-  to {transform: translateY(0); opacity: 1;}
+  z-index: 1000;
 }
