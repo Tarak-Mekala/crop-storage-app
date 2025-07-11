@@ -1,129 +1,142 @@
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  color: #333;
+  transition: background 0.5s ease;
 }
 
-/* Page 1 */
-.page1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background: linear-gradient(to bottom, #fffbcf, #e8f5e9);
+.page {
+  padding: 20px;
   text-align: center;
 }
-.page1 h1, .page1 p {
-  margin: 10px;
+
+#page1 {
+  background: linear-gradient(to bottom, yellow, white, green);
 }
-#startBtn {
-  padding: 20px 40px;
-  font-size: 2rem;
+
+#page2 {
+  background: linear-gradient(to bottom, #006400, #228B22, #32CD32);
+}
+
+#page3 {
+  background-color: #ffc0cb;
+}
+
+h1, h2, h3, p, label {
   font-weight: bold;
-  background: #90caf9;
+}
+
+.start-btn {
+  font-size: 20px;
+  padding: 15px 40px;
+  background-color: skyblue;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   margin-top: 20px;
 }
-#startBtn:hover {
-  background: #42a5f5;
+
+.paddy-emojis {
+  margin-top: 15px;
+  font-size: 24px;
 }
 
-/* Common pages */
-.page {
-  min-height: 100vh;
-  padding: 20px;
-  color: #212121;
-  font-weight: bold;
-}
-.lang-toggle {
-  text-align: right;
-  margin-bottom: 10px;
-}
-input[type="checkbox"] { transform: scale(1.2); }
-
-/* Page 2: Tropical Jungle vibes */
-.page2 {
-  background: linear-gradient(to bottom right, #2e7d32, #a5d6a7);
-}
-.page2 h2 {
-  margin: 20px 0 10px;
-}
 .input-group {
-  display: flex;
-  width: 100%;
+  position: relative;
+  margin: 20px auto;
+  width: 80%;
 }
+
 #cropInput {
-  flex: 1;
+  width: 100%;
   padding: 15px;
-  font-size: 1.2rem;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 2px solid #ccc;
 }
-#voiceBtn {
-  padding: 0 20px;
-  font-size: 1.5rem;
+
+.mic-btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 20px;
+  background: none;
+  border: none;
   cursor: pointer;
 }
-.suggestions {
+
+#suggestions {
   list-style: none;
-  padding: 0;
+  background: #fff;
   margin: 0;
+  padding: 0;
+  border: 1px solid #ccc;
   max-height: 150px;
   overflow-y: auto;
-  background: #fff;
 }
-.suggestions li {
+
+#suggestions li {
   padding: 10px;
   cursor: pointer;
 }
-.suggestions li:hover {
-  background: #c8e6c9;
+
+#suggestions li:hover {
+  background-color: #eee;
 }
 
-/* Page 3 */
-.page3 {
-  background: linear-gradient(to bottom, #ffe082, #ffab00);
-}
-.page3 h2, .page3 .result {
-  margin: 15px 0;
-}
-
-/* Result/wrapper styles */
-.error {
-  margin-top: 15px;
-  color: #b71c1c;
-}
-.result {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-}
-.weather-card {
-  margin-top: 15px;
-}
-.forecast {
-  display: flex;
-  justify-content: space-around;
-}
-.forecast-day {
-  background: #fff9c4;
+select {
+  font-size: 18px;
   padding: 10px;
-  border-radius: 8px;
-  width: 30%;
-  text-align: center;
+  border-radius: 10px;
+  width: 80%;
 }
 
-/* Buttons */
-#getDetailsBtn, .page3 button {
+.details-btn {
+  margin-top: 20px;
+  font-size: 20px;
   padding: 15px 30px;
-  font-size: 1.2rem;
-  font-weight: bold;
-  background: #4caf50;
+  background-color: orange;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  margin-top: 10px;
 }
-#getDetailsBtn:hover, .page3 button:hover {
-  background: #388e3c;
+
+.back-btn {
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 20px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.violet-box {
+  background-color: violet;
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  text-align: left;
+  color: black;
+}
+
+.lang-toggle {
+  float: right;
+  margin: 10px;
+  padding: 8px 15px;
+  font-size: 14px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.note {
+  font-size: 14px;
+  color: green;
+  margin-top: 5px;
 }
