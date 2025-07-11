@@ -1,185 +1,147 @@
-/* Reset and body styling */
 body {
   margin: 0;
-  font-family: "Arial", sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: bold;
-  color: #222;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
-/* General page layout */
-.page {
+#page1, #page2, #page3 {
+  display: none;
   padding: 20px;
-  text-align: center;
   min-height: 100vh;
   box-sizing: border-box;
+}
+
+/* Page 1 Gradient: Yellow-White-Green */
+#page1 {
+  background: linear-gradient(to bottom, #ffd700, #ffffff, #00ff00);
+  text-align: center;
+}
+
+/* Page 2 Gradient: Black-Blue */
+#page2 {
+  background: linear-gradient(to bottom right, #000000, #002244);
+  color: white;
+}
+
+/* Page 3: Yellow box with white background */
+#page3 {
+  background: linear-gradient(to bottom, #fffacd, #ffffff);
+}
+
+h1, h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
+
+#startBtn {
+  background-color: #002244;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#getDetailsBtn {
+  background-color: #00ccff;
+  color: white;
+  font-size: 1.5em;
+  padding: 15px 30px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+}
+
+#backBtn {
+  margin-top: 10px;
+  background-color: gray;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+}
+
+.input-box {
+  position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-}
-
-/* Page 1: Yellow → White → Green gradient and dark blue button */
-#page1 {
-  background: linear-gradient(to bottom, yellow, white, green);
-}
-
-.start-btn {
-  font-size: 24px;
-  padding: 20px 50px;
-  background-color: #002366;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  margin-top: 30px;
-  transition: transform 0.3s ease;
-}
-
-.start-btn:hover {
-  transform: scale(1.05);
-}
-
-.paddy-emojis {
-  margin-top: 20px;
-  font-size: 28px;
-}
-
-/* Page 2: Black → Dark Blue gradient and updated inputs */
-#page2 {
-  background: linear-gradient(to bottom, #000000, #001f3f);
-  color: white;
-}
-
-.input-group {
-  position: relative;
-  margin: 25px auto;
-  width: 85%;
+  margin-bottom: 20px;
 }
 
 #cropInput {
-  width: 100%;
-  padding: 20px;
-  font-size: 20px;
-  border-radius: 10px;
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 6px;
   border: none;
-  outline: none;
-  box-shadow: 0 0 8px #fff;
+  width: 100%;
 }
 
-.mic-btn {
+#micBtn {
   position: absolute;
   right: 10px;
   top: 10px;
-  font-size: 24px;
   background: transparent;
   border: none;
-  color: white;
+  font-size: 1.5em;
   cursor: pointer;
-}
-
-.mic-btn img {
-  width: 30px;
-  height: 30px;
 }
 
 #suggestions {
   list-style: none;
-  background: white;
-  color: black;
-  margin: 0;
   padding: 0;
-  border: 2px solid #aaa;
-  border-top: none;
-  max-height: 160px;
+  background-color: white;
+  max-height: 150px;
   overflow-y: auto;
-  border-radius: 0 0 8px 8px;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
 }
 
 #suggestions li {
-  padding: 12px;
-  font-size: 16px;
+  padding: 8px;
   cursor: pointer;
 }
 
 #suggestions li:hover {
-  background-color: #f0f0f0;
+  background-color: #eee;
 }
 
-select {
-  width: 85%;
+.dialog-box {
+  background-color: violet;
+  color: white;
   padding: 15px;
-  font-size: 18px;
-  border-radius: 10px;
-  border: none;
   margin-top: 15px;
-  box-shadow: 0 0 8px #fff;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px #888;
 }
 
-/* Page 2 buttons */
-.details-btn {
-  font-size: 20px;
-  padding: 15px 40px;
-  background-color: orange;
-  color: black;
-  border: none;
-  border-radius: 12px;
-  margin-top: 25px;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.details-btn:hover {
-  transform: scale(1.05);
-}
-
-.back-btn {
-  background-color: #555;
+#languageToggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 6px 12px;
+  background-color: violet;
   color: white;
-  font-size: 16px;
   border: none;
   border-radius: 6px;
-  padding: 10px 20px;
-  margin: 30px auto 10px;
-  display: inline-block;
-  cursor: pointer;
-}
-
-/* Language toggle */
-.lang-toggle {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background-color: #333;
-  color: white;
-  font-size: 14px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  border: none;
-}
-
-/* Page 3: Retained yellow box + white bg theme */
-#page3 {
-  background-color: #ffffff;
-  color: black;
-}
-
-.violet-box {
-  background-color: #fff8dc;
-  border: 3px solid #ffa500;
-  margin: 25px auto;
-  padding: 25px;
-  border-radius: 15px;
-  width: 90%;
-  text-align: left;
   font-weight: bold;
-  color: black;
+  cursor: pointer;
+  z-index: 1000;
 }
 
-/* Misc */
-.note {
-  font-size: 14px;
-  color: #00ff00;
-  margin-top: 5px;
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+#error {
+  color: red;
+  margin-top: 10px;
 }
