@@ -7,7 +7,7 @@
   "background_color": "#ffffff",
   "icons": [
     {
-      "src": "images/logo.png",
+      "src": "logo.png",  // ✅ Update path here (no "images/")
       "sizes": "192x192",
       "type": "image/png"
     }
