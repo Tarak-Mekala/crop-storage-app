@@ -1,73 +1,147 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agri Sathi</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="manifest" href="manifest.json" />
-</head>
-<body>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
-  <!-- Language Toggle -->
-  <div id="languageToggle">
-    <label><input type="checkbox" id="languageSwitch" onchange="toggleLanguage()" /> తెలుగు</label>
-  </div>
+#page1, #page2, #page3 {
+  display: none;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
 
-  <!-- Page 1: Welcome -->
-  <div id="page1">
-    <h1>🌾 WELCOME TO AGRI SATHI</h1>
-    <p>FIND IDEAL STORAGE CONDITIONS AND NEARBY STORAGE CENTERS</p>
-    <button id="startButton" onclick="goToPage2()">START</button>
-  </div>
+/* Page 1 Gradient: Yellow-White-Green */
+#page1 {
+  background: linear-gradient(to bottom, #ffd700, #ffffff, #00ff00);
+  text-align: center;
+}
 
-  <!-- Page 2: Input -->
-  <div id="page2" style="display: none;">
-    <h2>ENTER CROP NAME</h2>
-    <div class="input-container">
-      <input type="text" id="cropInput" placeholder="Type crop name..." oninput="showSuggestions()" autocomplete="off" />
-      <button id="voiceBtn" onclick="startVoiceInput()">🎤</button>
-      <div id="listeningNote" style="display: none;">🎙️ Listening...</div>
-      <ul id="suggestions" class="suggestion-box"></ul>
-    </div>
+/* Page 2 Gradient: Black-Blue */
+#page2 {
+  background: linear-gradient(to bottom right, #000000, #002244);
+  color: white;
+}
 
-    <h2>SELECT DISTRICT</h2>
-    <select id="regionSelect">
-      <option value="">-- SELECT DISTRICT --</option>
-    </select>
+/* Page 3: Yellow box with white background */
+#page3 {
+  background: linear-gradient(to bottom, #fffacd, #ffffff);
+}
 
-    <div class="button-group">
-      <button id="detailsBtn" onclick="goToPage3()">GET DETAILS</button>
-      <button class="back-btn" onclick="goToPage1()">BACK</button>
-    </div>
+h1, h2 {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+}
 
-    <div class="error" id="error"></div>
-  </div>
+#startBtn {
+  background-color: #002244;
+  color: white;
+  padding: 15px 30px;
+  font-size: 1.5em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
 
-  <!-- Page 3: Output -->
-  <div id="page3" style="display: none;">
-    <h2 id="cropTitle">CROP NAME</h2>
-    <div class="result" id="result"></div>
+#getDetailsBtn {
+  background-color: #00ccff;
+  color: white;
+  font-size: 1.5em;
+  padding: 15px 30px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 8px;
+}
 
-    <div class="result" id="centerSection" style="display: none;">
-      <h3>NEARBY STORAGE CENTERS</h3>
-      <ul id="storageResults"></ul>
-    </div>
+#backBtn {
+  margin-top: 10px;
+  background-color: gray;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+}
 
-    <div class="result" id="weatherCard" style="display: none;"></div>
+.input-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
 
-    <button class="back-btn" onclick="goToPage2()">SEARCH ANOTHER CROP</button>
-  </div>
+#cropInput {
+  padding: 12px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: none;
+  width: 100%;
+}
 
-  <script src="script.js"></script>
-  <script>
-    window.onload = function () {
-      showOnlyPage("page1");
-    };
+#micBtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  font-size: 1.5em;
+  cursor: pointer;
+}
 
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-  </script>
-</body>
-</html>
+#suggestions {
+  list-style: none;
+  padding: 0;
+  background-color: white;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  border-top: none;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+
+#suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#suggestions li:hover {
+  background-color: #eee;
+}
+
+.dialog-box {
+  background-color: violet;
+  color: white;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 2px 2px 8px #888;
+}
+
+#languageToggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 6px 12px;
+  background-color: violet;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+button {
+  transition: transform 0.2s ease-in-out;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+#error {
+  color: red;
+  margin-top: 10px;
+}
